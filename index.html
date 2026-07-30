@@ -27,10 +27,10 @@
   <div class="multi-area" id="multiArea">
     <div class="fields">
       <div class="field"><label>单副本节点数</label><div class="input-wrap"><input id="machines" type="number" value="2" min="2" step="1"/><span>台/副本</span></div></div>
-      <div class="field"><label>完整模型副本数</label><div class="input-wrap"><input id="replicas" type="number" value="1" min="1" step="1"/><span>个</span></div></div>
+      <div class="field"><label id="replicasLabel">规划完整副本数</label><div class="input-wrap"><input id="replicas" type="number" value="1" min="1" step="1"/><span>个</span></div></div>
       <div class="field full"><label>副本调度效率</label><div class="input-wrap"><input id="scaleEff" type="number" value="100" min="1" max="100" step="0.1"/><span>%</span></div></div>
     </div>
-    <p class="hint">单副本节点数只负责容纳完整模型，默认不放大单副本吞吐；完整副本可独立处理请求，总吞吐近似按副本数 × 调度效率扩展。</p>
+    <p class="hint" id="replicaModeHint">容量模式下可手动规划完整副本数；单副本节点数只负责模型承载与成本，不自动放大吞吐。</p>
     <div class="benchmark-toolbar"><span id="benchmarkSummary">未应用单副本压测，当前按保守口径估算</span><button type="button" id="openBenchmarkManager">录入 / 管理压测</button></div>
   </div>
   <div class="compute-note"><span id="computePrecisionHint"><b>计算口径：</b>BF16/FP16 基准倍率固定为 1.00。</span><div class="calibration-actions"><button type="button" id="savePrecisionMultiplier" disabled>保存当前倍率</button><button type="button" class="secondary" id="resetPrecisionMultiplier" disabled>恢复 1.00</button></div></div>
@@ -95,6 +95,7 @@ $('eff').closest('.field').id='effField';
 $('effField').classList.remove('advanced-field');
 let qpsMode=false;
 let multiMode=false;
+let plannedReplicas=1;
 let selectedSavedPresetId='';
 const clusterStatusElement=document.createElement('div');
 clusterStatusElement.id='clusterStatus';
@@ -395,11 +396,18 @@ function deactivateClusterBenchmark(){
 }
 
 function setMode(mode){
-  qpsMode=mode==='qps';
+  const nextQpsMode=mode==='qps';
+  if(nextQpsMode&&!qpsMode)plannedReplicas=Math.max(1,Math.floor(Number($('replicas').value)||1));
+  if(!nextQpsMode&&qpsMode)$('replicas').value=plannedReplicas;
+  qpsMode=nextQpsMode;
   $('capacityBtn').classList.toggle('on',!qpsMode);
   $('qpsBtn').classList.toggle('on',qpsMode);
   $('qpsArea').classList.toggle('show',qpsMode);
   $('replicas').disabled=qpsMode;
+  $('replicasLabel').textContent=qpsMode?'最低所需副本数（自动）':'规划完整副本数';
+  $('replicaModeHint').textContent=qpsMode
+    ?'根据 QPS × 平均输出 Token 和单副本能力自动反算；该字段只读，并同步总节点、总卡数和成本。'
+    :'容量模式下可手动规划完整副本数；单副本节点数只负责模型承载与成本，不自动放大吞吐。';
   $('effField').classList.toggle('mode-disabled',qpsMode);
   $('eff').disabled=qpsMode;
   $('effHint').textContent=qpsMode?'QPS 模式不使用此滑块；右侧按单副本能力反算所需完整副本数。':'没有单副本压测时，用该值折算保守参考吞吐；保存压测后将直接采用实测 TPS。';
@@ -435,10 +443,14 @@ function calculate(){
   const rawSystems=qpsMode&&demand>0&&perInstanceLimit>0?Math.max(1,Math.ceil(demand/perInstanceLimit)):1;
   const qpsDispatchFactor=rawSystems>1?replicaDispatchSetting:1;
   const systems=qpsMode&&demand>0&&perInstanceLimit>0?Math.max(1,Math.ceil(demand/(perInstanceLimit*qpsDispatchFactor))):1;
+  const displayedReplicas=multiMode&&qpsMode?systems:replicas;
+  if(multiMode&&qpsMode)$('replicas').value=displayedReplicas;
+  const displayedFleetCards=totalCards*displayedReplicas;
   const perSystemEff=systems>0?equivalentEff/systems:0;
   const tps=qpsMode?demand:capacity;
   const instanceRent=x.rent*machines;
   const fleetRent=instanceRent*replicas;
+  const displayedFleetRent=instanceRent*displayedReplicas;
   const billedRent=qpsMode?instanceRent*systems:fleetRent;
   const month=tps*x.days*86400;
   const cost=month>0?billedRent/month*1e6:0;
@@ -450,6 +462,7 @@ function calculate(){
   const price=x.margin<100?cost/(1-x.margin/100):Infinity;
   const hbm=x.memory*totalCards;
   const fleetHbm=hbm*replicas;
+  const displayedFleetHbm=hbm*displayedReplicas;
   const precisionOptions=[
     {id:'precisionBf16',value:2,label:'BF16/FP16'},
     {id:'precisionFp8',value:1,label:'FP8'},
@@ -507,7 +520,7 @@ function calculate(){
         :'未应用单副本压测，当前按保守口径估算';
   }
   $('resultModel').textContent=multiMode
-    ?`${x.model||'未命名模型'} · ${machines} 节点/副本 × ${replicas} 副本`
+    ?`${x.model||'未命名模型'} · ${machines} 节点/副本 × ${displayedReplicas} 副本`
     :`${x.model||'未命名模型'} · ${cardsPerMachine} × 910C`;
   $('throughputLabel').textContent=qpsMode?'目标需求吞吐':multiMode?'总有效输出吞吐':'有效输出吞吐';
   $('effectiveTps').textContent=fmt(tps);
@@ -581,9 +594,11 @@ function calculate(){
   const clusterStatus=$('clusterStatus');
   clusterStatus.hidden=!multiMode;
   if(multiMode){
-    clusterStatus.textContent=benchmarkApplied
-      ?`单副本：${machines} 节点 / ${totalCards} 张卡 / 实测 ${fmt(benchmarkTps)} token/s；当前 ${replicas} 个完整副本，共 ${fleetCards} 张卡，月租 ¥${fmt(fleetRent)}。`
-      :`单副本：${machines} 节点 / ${totalCards} 张卡 / 显存 ${fmt(hbm)} GB；当前 ${replicas} 个完整副本，共 ${fleetCards} 张卡、${fmt(fleetHbm)} GB 显存，月租 ¥${fmt(fleetRent)}。`;
+    clusterStatus.textContent=qpsMode
+      ?`QPS 自动配置：最低 ${displayedReplicas} 个完整副本；共 ${displayedReplicas*machines} 个节点、${displayedFleetCards} 张卡、${fmt(displayedFleetHbm)} GB 显存，月租 ¥${fmt(displayedFleetRent)}。`
+      :benchmarkApplied
+        ?`单副本：${machines} 节点 / ${totalCards} 张卡 / 实测 ${fmt(benchmarkTps)} token/s；当前 ${replicas} 个完整副本，共 ${fleetCards} 张卡，月租 ¥${fmt(fleetRent)}。`
+        :`单副本：${machines} 节点 / ${totalCards} 张卡 / 显存 ${fmt(hbm)} GB；当前 ${replicas} 个完整副本，共 ${fleetCards} 张卡、${fmt(fleetHbm)} GB 显存，月租 ¥${fmt(fleetRent)}。`;
   }
 
   precisionOptions.forEach(option=>{
@@ -669,6 +684,7 @@ $('capacityBtn').onclick=()=>setMode('capacity');
 $('qpsBtn').onclick=()=>setMode('qps');
 $('calc').onclick=calculate;
 ids.forEach(id=>$(id).addEventListener('input',()=>{
+  if(id==='replicas'&&!qpsMode)plannedReplicas=Math.max(1,Math.floor(Number($('replicas').value)||1));
   if(['model','arch','precision','activeParams','totalParams'].includes(id)){
     selectedSavedPresetId='';
     markPreset('custom');
