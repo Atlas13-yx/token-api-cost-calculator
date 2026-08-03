@@ -12,11 +12,13 @@
     .benchmark-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid #dce6fb}.benchmark-toolbar span{min-width:0;color:#315585;font-size:10px}.benchmark-toolbar button{border:0;border-radius:4px;padding:6px 8px;background:#e5edff;color:#2858cd;font:inherit;font-size:10px;font-weight:650;cursor:pointer;white-space:nowrap}.benchmark-modal-panel{width:min(580px,100%)}.benchmark-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.benchmark-form .full{grid-column:1/-1}.benchmark-explain{margin-top:10px;padding:9px 10px;border-radius:6px;background:#eef4ff;color:#315585;font-size:11px}.benchmark-list{display:grid;gap:6px;margin-top:12px}.benchmark-list-title{display:flex;align-items:center;justify-content:space-between;color:#475467;font-size:11px;font-weight:650}.benchmark-item{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;width:100%;border:1px solid var(--line);border-radius:6px;background:#fafbfc;padding:8px 9px;color:#344054;text-align:left;font:inherit;cursor:pointer}.benchmark-item:hover{border-color:#b8caff}.benchmark-item.selected{border-color:#7ea2ff;background:#edf3ff}.benchmark-item b,.benchmark-item small{display:block}.benchmark-item b{font-size:11px}.benchmark-item small{color:#667085;font-size:10px}.benchmark-item strong{color:#2858cd;font-size:11px}.benchmark-empty{padding:9px;border-radius:6px;background:#fafbfc;color:#98a2b3;font-size:10px}@media(max-width:560px){.benchmark-form{grid-template-columns:1fr}.benchmark-form .full{grid-column:auto}.benchmark-toolbar{align-items:flex-start;flex-direction:column}}
     .advanced-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 8px 8px}.advanced-grid .input-wrap{margin:0}.advanced-grid label{display:block;color:#667085;font-size:10px;margin-bottom:4px}.basis-pill{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:4px 8px;border-radius:99px;background:#eef4ff;color:#315585;font-size:10px}.basis-pill.measured{background:#ecfdf3;color:var(--green)}.benchmark-workload{margin-top:3px;color:#667085;font-size:10px}.benchmark-form .input-wrap input::placeholder{font-size:11px}@media(max-width:560px){.advanced-grid{grid-template-columns:1fr}}
     .config-validity{margin-bottom:10px;font-weight:650}.config-validity.reference{background:#eef4ff;color:#315585}.metric.invalid{background:#fffaeb;border-color:#fedf89}.metric.invalid .value{color:var(--amber)}.quote-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.quote-row.blocked #suggestPrice{font-size:15px!important;color:var(--amber)!important}.rule-note{grid-column:1/-1;margin:-2px 0 0;padding:7px 9px;border-radius:6px;background:#eef4ff;color:#315585;font-size:10px}.rule-note.warn{background:#fffaeb;color:var(--amber)}
+    .topology-lanes{display:grid;grid-template-columns:1fr 1fr;gap:7px}.topology-lane{border:1px solid #dce6fb;border-radius:6px;background:#fff;padding:7px}.topology-lane-head{margin-bottom:6px}.topology-lane-head b{display:block;color:#2858cd;font-size:10px}.topology-lane-head small{display:block;color:#667085;font-size:9px;line-height:1.35;margin-top:2px}.topology-lane .fields{grid-template-columns:1fr;gap:6px}.fingerprint-note{padding:7px 9px;border-radius:6px;background:#eef4ff;color:#315585;font-size:10px;margin-top:7px}.fingerprint-note.complete{background:#ecfdf3;color:var(--green)}.fingerprint-note.warn{background:#fffaeb;color:var(--amber)}.doc-links{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin:-4px 0 10px;font-size:11px}.doc-links span{color:#98a2b3}.doc-links a{color:#2858cd;text-decoration:none;padding:3px 7px;border:1px solid #d7e5ff;border-radius:99px;background:#f5f8ff}.doc-links a:hover{background:#eaf1ff}@media(max-width:560px){.doc-links{justify-content:flex-start;flex-wrap:wrap}}@media(max-width:440px){.topology-lanes{grid-template-columns:1fr}}
   </style>
 </head>
 <body><div class="shell">
 <main class="main"><div class="crumb">算力运营 / 成本测算 / Token API</div><div class="title-row"><div><h1>Token API 硬件成本测算</h1><p>按模型结构、硬件上限或 QPS 需求，估算输出吞吐与每百万 Token 的硬件成本。</p></div><div class="tag">容量规划辅助工具</div></div>
-<div class="notice"><b>i</b><div><b>双口径测算：</b>容量模式用于估算可持续输出能力；QPS 模式按 <strong>QPS × 平均输出 Token</strong>反算完整副本数。多机单副本先汇总副本内全部卡算力，再分别折算副本内通信损耗、内核与服务效率和副本间调度损耗；正式 SLA 以同硬件、拓扑、运行时、ISL/OSL 与并发下的压测为准。</div></div>
+<div class="notice"><b>i</b><div><b>双口径测算：</b>容量模式用于估算可持续输出能力；QPS 模式的报价产量按 <strong>QPS × 平均输出 Token</strong>，无压测副本规划则按<strong>输出 Token + 输入 Token × Prefill 等效负载系数</strong>。多机节点先组成一个完整模型副本，只有彼此独立的完整副本才扩展总吞吐；正式 SLA 以同硬件、拓扑、互联、运行时、ISL/OSL 与并发下的压测为准。</div></div>
+<div class="doc-links"><span>最新文档</span><a href="docs/Token_API_成本测算工具_使用指南_v2.0.docx" download>使用指南</a><a href="docs/Token_API_成本测算工具_计算口径与更新报告_v2.0.docx" download>计算口径与更新报告</a></div>
 <section class="grid"><div class="card"><div class="card-h"><h2>测算参数</h2><small>可直接修改</small></div><div class="form"><div class="section-label">模型配置</div><div class="fields"><div class="field full"><label>模型选择</label>
 <div class="model-compact"><div><small>当前模型</small><b id="currentModelName">GLM-5.2</b><div class="current-meta" id="currentModelMeta">MoE · 40B 激活 / 744B 总参数</div></div><button type="button" class="ghost" id="openModelPicker">选择 / 管理模型</button></div></div><div class="field full"><label>模型名称</label><div class="input-wrap"><input id="model" value="GLM-5.2" /></div></div><div class="field"><label>结构</label><div class="input-wrap"><select id="arch"><option value="moe">MoE</option><option value="dense">Dense</option></select></div></div><div class="field"><label>权重精度（显存口径）</label><div class="input-wrap"><select id="precision"><option value="2">BF16 / FP16（2 B/参数）</option><option value="1">FP8（1 B/参数）</option><option value="0.5">INT4 / MXFP4 近似（0.5 B/参数）</option></select></div></div><div class="field"><label>每 Token 激活参数</label><div class="input-wrap"><input id="activeParams" type="number" value="40" min="0.1" step="0.1"/><span>B</span></div></div><div class="field"><label>总参数（权重估算）</label><div class="input-wrap"><input id="totalParams" type="number" value="744" min="0.1" step="0.1"/><span>B</span></div></div></div>
 <div class="split"></div><div class="section-label">硬件与效率</div>
@@ -34,15 +36,13 @@
       <button type="button" id="toggleMultiDetails" aria-expanded="true" aria-controls="multiContent">收起设置</button>
     </div>
     <div class="multi-content" id="multiContent">
-      <div class="fields">
-        <div class="field"><label>单副本节点数</label><div class="input-wrap"><input id="machines" type="number" value="2" min="2" step="1"/><span>台/副本</span></div></div>
-        <div class="field"><label>副本内并行效率</label><div class="input-wrap"><input id="parallelEff" type="number" value="50" min="1" max="100" step="0.1"/><span>%</span></div></div>
-        <div class="field"><label id="replicasLabel">规划完整副本数</label><div class="input-wrap"><input id="replicas" type="number" value="1" min="1" step="1"/><span>个</span></div></div>
-        <div class="field"><label>副本间调度效率</label><div class="input-wrap"><input id="scaleEff" type="number" value="95" min="1" max="100" step="0.1"/><span>%</span></div></div>
+      <div class="topology-lanes">
+        <div class="topology-lane"><div class="topology-lane-head"><b>① 副本内部署</b><small>节点、TP/PP/EP 与通信效率只决定一个完整模型副本的能力。</small></div><div class="fields"><div class="field"><label>单副本节点数</label><div class="input-wrap"><input id="machines" type="number" value="2" min="2" step="1"/><span>台/副本</span></div></div><div class="field"><label>副本内并行效率</label><div class="input-wrap"><input id="parallelEff" type="number" value="50" min="1" max="100" step="0.1"/><span>%</span></div></div></div></div>
+        <div class="topology-lane"><div class="topology-lane-head"><b>② 独立完整副本扩容</b><small>只有能够独立处理请求的完整副本，才按副本数扩展总吞吐。</small></div><div class="fields"><div class="field"><label id="replicasLabel">规划完整副本数</label><div class="input-wrap"><input id="replicas" type="number" value="1" min="1" step="1"/><span>个</span></div></div><div class="field"><label>副本间调度效率</label><div class="input-wrap"><input id="scaleEff" type="number" value="95" min="1" max="100" step="0.1"/><span>%</span></div></div></div></div>
       </div>
       <div class="multi-details" id="multiDetails">
         <p class="hint" id="replicaModeHint">容量模式可手动规划完整副本；副本内并行效率描述 TP/PP/EP 跨卡通信损耗，副本间调度效率描述多个完整副本的负载均衡损耗。</p>
-        <details class="advanced-field" style="margin-top:8px"><summary>压测匹配参数 · 拓扑、运行时与 SLA</summary><div class="advanced-grid"><div><label>TP（可选）</label><div class="input-wrap"><input id="tpSize" type="number" value="0" min="0" step="1"/><span>0=未指定</span></div></div><div><label>PP（可选）</label><div class="input-wrap"><input id="ppSize" type="number" value="0" min="0" step="1"/><span>0=未指定</span></div></div><div><label>EP（可选）</label><div class="input-wrap"><input id="epSize" type="number" value="0" min="0" step="1"/><span>0=未指定</span></div></div><div><label>当前推理框架</label><div class="input-wrap"><input id="runtimeFramework" placeholder="例如 MindIE / vLLM"/></div></div><div><label>当前框架 / 镜像版本</label><div class="input-wrap"><input id="runtimeVersion" placeholder="例如 0.10.2"/></div></div><div><label>P95 TTFT 上限（可选）</label><div class="input-wrap"><input id="slaTtft" type="number" value="0" min="0" step="1"/><span>ms</span></div></div><div><label>P95 ITL 上限（可选）</label><div class="input-wrap"><input id="slaItl" type="number" value="0" min="0" step="0.1"/><span>ms</span></div></div></div></details>
+        <details class="advanced-field" style="margin-top:8px"><summary>压测匹配参数 · 拓扑、互联、运行时与 SLA</summary><div class="advanced-grid"><div><label>TP（1=未启用）</label><div class="input-wrap"><input id="tpSize" type="number" value="8" min="1" step="1"/><span>路</span></div></div><div><label>PP（1=未启用）</label><div class="input-wrap"><input id="ppSize" type="number" value="2" min="1" step="1"/><span>级</span></div></div><div><label>EP（1=未启用）</label><div class="input-wrap"><input id="epSize" type="number" value="1" min="1" step="1"/><span>路</span></div></div><div><label>跨节点互联类型</label><div class="input-wrap"><input id="networkFabric" placeholder="例如 HCCS / IB / RoCE"/></div></div><div><label>单节点跨机带宽</label><div class="input-wrap"><input id="networkBandwidth" type="number" value="0" min="0" step="1"/><span>Gb/s</span></div></div><div><label>RDMA / 直通状态</label><div class="input-wrap"><select id="rdmaMode"><option value="unknown">待确认</option><option value="enabled">已启用</option><option value="disabled">未启用</option></select></div></div><div><label>当前推理框架</label><div class="input-wrap"><input id="runtimeFramework" placeholder="例如 MindIE / vLLM"/></div></div><div><label>当前框架 / 镜像版本</label><div class="input-wrap"><input id="runtimeVersion" placeholder="例如 0.10.2"/></div></div><div><label>P95 TTFT 上限（可选）</label><div class="input-wrap"><input id="slaTtft" type="number" value="0" min="0" step="1"/><span>ms</span></div></div><div><label>P95 ITL 上限（可选）</label><div class="input-wrap"><input id="slaItl" type="number" value="0" min="0" step="0.1"/><span>ms</span></div></div></div><div class="fingerprint-note" id="fingerprintStatus">压测只有在拓扑、跨机互联和运行时指纹完整且一致时才会应用。</div></details>
         <div class="benchmark-toolbar"><span id="benchmarkSummary">未应用单副本压测，当前按保守口径估算</span><button type="button" id="openBenchmarkManager">录入 / 管理压测</button></div>
       </div>
     </div>
@@ -52,7 +52,7 @@
   <details class="field full advanced-field"><summary>高级参数 · 显存预留与带宽参考</summary><div class="advanced-grid"><div><label>显存预留率</label><div class="input-wrap"><input id="hbmReserve" type="number" value="20" min="0" max="90" step="1"/><span>%</span></div></div><div><label>单卡 HBM 带宽（仅作低批次参考）</label><div class="input-wrap"><input id="bandwidth" type="number" value="0" min="0"/><span>GB/s</span></div></div></div><p class="hint" style="padding:0 8px 8px;margin:0">带宽参考只用于辅助判断，不直接限制主结果；真实吞吐以同拓扑压测为准。</p></details>
   <div class="field full" id="effField"><label>内核与服务效率（不含多机通信，仅用于无压测容量估算）</label><div class="slider-row"><input id="eff" type="range" min="1" max="100" step="0.1" value="20"/><span class="eff-val" id="effVal">20%</span></div><p class="hint" id="effHint">该值不包含副本内多机通信损耗；没有压测时与副本内并行效率相乘。</p></div>
 </div>
-<div class="split"></div><div class="section-label">成本与业务负载</div><div class="fields"><div class="field"><label id="rentLabel">整机月租金</label><div class="input-wrap"><input id="rent" type="number" value="55000" min="0"/><span>元/月</span></div></div><div class="field"><label>按月运行时间</label><div class="input-wrap"><input id="days" type="number" value="30" min="1" max="31"/><span>天</span></div></div><div class="field"><label>日均有效负载时长</label><div class="input-wrap"><input id="hoursPerDay" type="number" value="24" min="0.1" max="24" step="0.1"/><span>小时/天</span></div></div><div class="field"><label>目标毛利率（建议报价）</label><div class="slider-row"><input id="margin" type="range" min="0" max="90" value="50"/><span class="eff-val" id="marginVal">50%</span></div></div></div><div class="mode"><button id="capacityBtn" class="on">按算力容量</button><button id="qpsBtn">按 QPS 需求</button></div><div id="qpsArea" class="qps-area"><div class="fields"><div class="field"><label>稳定 QPS</label><div class="input-wrap"><input id="qps" type="number" value="50" min="0"/><span>req/s</span></div></div><div class="field"><label>平均输出</label><div class="input-wrap"><input id="outTokens" type="number" value="240" min="1"/><span>token/req</span></div></div><div class="field"><label>内核与业务规划系数（不含多机通信）</label><div class="input-wrap"><input id="qpsPlanningEff" type="number" value="20" min="1" max="100" step="0.1"/><span>% 理论上限</span></div></div><div class="field"><label>目标副本负载率</label><div class="input-wrap"><input id="targetUtil" type="number" value="80" min="1" max="100" step="1"/><span>%</span></div></div></div><details class="advanced-field" style="margin-top:8px"><summary>QPS 高级参数 · 工作负载与冗余</summary><div class="advanced-grid"><div><label>平均输入 ISL</label><div class="input-wrap"><input id="inTokens" type="number" value="1024" min="1"/><span>token/req</span></div></div><div><label>目标并发</label><div class="input-wrap"><input id="qpsConcurrency" type="number" value="64" min="1"/><span>并发</span></div></div><div><label>额外冗余副本</label><div class="input-wrap"><input id="reserveReplicas" type="number" value="0" min="0" step="1"/><span>个</span></div></div></div></details><p class="hint">规划系数不包含副本内多机通信损耗；目标负载率用于预留时延与流量波动空间。输入长度与并发不计入输出 Token 报价，但用于严格匹配压测工作负载。</p></div><div class="actions"><button class="primary" id="calc">刷新测算结果</button><button class="ghost" id="reset">恢复示例</button></div></div></div>
+<div class="split"></div><div class="section-label">成本与业务负载</div><div class="fields"><div class="field"><label id="rentLabel">整机月租金</label><div class="input-wrap"><input id="rent" type="number" value="55000" min="0"/><span>元/月</span></div></div><div class="field"><label>按月运行时间</label><div class="input-wrap"><input id="days" type="number" value="30" min="1" max="31"/><span>天</span></div></div><div class="field"><label>日均有效负载时长</label><div class="input-wrap"><input id="hoursPerDay" type="number" value="24" min="0.1" max="24" step="0.1"/><span>小时/天</span></div></div><div class="field"><label>目标毛利率（建议报价）</label><div class="slider-row"><input id="margin" type="range" min="0" max="90" value="50"/><span class="eff-val" id="marginVal">50%</span></div></div></div><div class="mode"><button id="capacityBtn" class="on">按算力容量</button><button id="qpsBtn">按 QPS 需求</button></div><div id="qpsArea" class="qps-area"><div class="fields"><div class="field"><label>稳定 QPS</label><div class="input-wrap"><input id="qps" type="number" value="50" min="0"/><span>req/s</span></div></div><div class="field"><label>平均输出</label><div class="input-wrap"><input id="outTokens" type="number" value="240" min="1"/><span>token/req</span></div></div><div class="field"><label>内核与业务规划系数（不含多机通信）</label><div class="input-wrap"><input id="qpsPlanningEff" type="number" value="20" min="1" max="100" step="0.1"/><span>% 理论上限</span></div></div><div class="field"><label>目标副本负载率</label><div class="input-wrap"><input id="targetUtil" type="number" value="80" min="1" max="100" step="1"/><span>%</span></div></div></div><details class="advanced-field" style="margin-top:8px"><summary>QPS 高级参数 · Prefill、工作负载与冗余</summary><div class="advanced-grid"><div><label>平均输入 ISL</label><div class="input-wrap"><input id="inTokens" type="number" value="1024" min="1"/><span>token/req</span></div></div><div><label>输入 Token 等效负载系数（实测/规划）</label><div class="input-wrap"><input id="prefillFactor" type="number" value="1" min="0" step="0.01"/><span>× 输出 token</span></div></div><div><label>目标并发</label><div class="input-wrap"><input id="qpsConcurrency" type="number" value="64" min="1"/><span>并发</span></div></div><div><label>额外冗余副本</label><div class="input-wrap"><input id="reserveReplicas" type="number" value="0" min="0" step="1"/><span>个</span></div></div></div></details><p class="hint">无匹配压测时，副本数按“输出 Token + 输入 Token × 等效负载系数”粗估；该系数受 Prefill 内核、批处理和缓存影响，可用实测修正。硬件单价仍只除以输出 Token；正式 SLA 规划应使用同工作负载压测。</p></div><div class="actions"><button class="primary" id="calc">刷新测算结果</button><button class="ghost" id="reset">恢复示例</button></div></div></div>
 <div class="card"><div class="card-h"><h2>测算结果</h2><small id="resultModel">GLM-5.2 · Ascend 910C</small></div><div class="results"><div id="configValidity" class="status config-validity reference">正在校验配置规则</div><div class="metrics"><div class="metric primary-m"><div class="label" id="throughputLabel">有效输出吞吐</div><div class="value" id="effectiveTps">12,520</div><div class="unit">token / 秒</div><div class="sub" id="modeNote">按 20% 内核与服务效率折算</div></div><div class="metric" id="costMetric"><div class="label">硬件成本</div><div class="value" id="costPerM">¥ 1.70</div><div class="unit">/ 百万输出 token</div><div class="sub" id="costNote">仅月租金，不含附加成本</div></div><div class="metric"><div class="label">理论吞吐上限</div><div class="value" id="theoreticalTps">62,600</div><div class="unit">token / 秒 / 当前配置</div><div class="sub" id="ceilingNote">按 Decode 算力上限</div></div><div class="metric"><div class="label">月处理量</div><div class="value" id="monthlyTokens">32.45B</div><div class="unit">输出 token / 月</div><div class="sub" id="weightNote">权重与显存待校验</div></div></div><div class="bar-wrap"><div class="bar-title"><span id="utilLabel">内核与服务效率（相对理论上限）</span><b id="utilText">20.0%</b></div><div class="bar"><i id="utilBar"></i></div></div><div id="qpsEfficiencyStatus" class="status" hidden></div><div id="fitStatus" class="status">权重显存估算：请确认</div><div class="precision-comparison" aria-label="不同权重精度的显存估算"><button type="button" class="precision-card selected warn" id="precisionBf16" data-precision-choice="2"><span>未量化 · BF16/FP16</span><b>1,488 GB</b><small>至少 12 张 · 当前 8 张不足</small></button><button type="button" class="precision-card" id="precisionFp8" data-precision-choice="1"><span>FP8 · 1 B/参数</span><b>744 GB</b><small>至少 6 张 · 当前 8 张可容纳</small></button><button type="button" class="precision-card" id="precisionInt4" data-precision-choice="0.5"><span>INT4 / MXFP4 · 0.5 B/参数</span><b>372 GB</b><small>至少 3 张 · 当前 8 张可容纳</small></button></div><p class="precision-note">点击卡片可切换左侧权重精度；显存判断按预留后的可用容量计算，仍不替代真实 KV Cache 与运行时容量验证。</p><div class="formula"><b>当前公式：</b><code>单副本 Decode 上限 = 副本内总 FLOPS ÷ (2 × 激活参数)</code>；无压测容量 = 上限 × 副本内并行效率 × 内核与服务效率；<code>总吞吐 = 单副本吞吐 × 完整副本数 × 实际生效调度效率</code>。QPS 无压测时改用独立规划系数与目标负载率，不直接使用理论上限。</div><div class="scenario" id="capacityScenario"><h3>1% ～ 20% 内核与服务效率参考</h3><div class="range"><div><small>低效 · 1%</small><b id="lowTps">626 token/s</b><small id="lowCost">¥33.86 / M token</small></div><div><small>当前 · <span id="currentEff">20%</span></small><b id="midTps">12,520 token/s</b><small id="midCost">¥1.69 / M token</small></div><div><small>参考 · 20%</small><b id="highTps">12,520 token/s</b><small id="highCost">¥1.69 / M token</small></div></div></div><div class="scenario" id="qpsScenario" hidden><h3>QPS 容量规划</h3><div class="range"><div><small>目标需求吞吐</small><b id="qpsDemandTps">12,000 token/s</b><small>QPS × 平均输出 Token</small></div><div><small id="qpsEffLabel">单副本规划负载率</small><b id="qpsEquivalentEff">19.2%</b><small>需求 ÷ 规划能力</small></div><div><small>应付费完整副本</small><b id="qpsSystems">1 套</b><small id="qpsSystemNote">含目标负载率与冗余</small></div></div></div><div class="scenario"><h3>建议对外报价（仅覆盖硬件成本）</h3><div class="quote-row" id="quoteRow"><b id="suggestPrice" style="font-size:22px;color:var(--green)">¥ 3.40</b><span id="quoteNote" style="color:var(--muted);font-size:12px">/ 百万输出 Token；仍需叠加电力、网络、运维、许可与税费</span></div></div></div></div></section>
 <section class="refs"><details class="card refs-disclosure"><summary><span><b>测算依据与使用边界</b><small>公式、资料来源与适用范围</small></span><span>展开查看</span></summary><div class="refs-body"><p>本工具用于容量规划与硬件成本预估。理论值是 Decode FLOPS 粗略上限；QPS 无压测估算使用独立规划系数、目标负载率和副本调度效率，避免把理论峰值直接当作生产容量。压测只有在模型、硬件、精度、TP/PP/EP 拓扑、运行时、ISL/OSL 与并发一致，并满足当前 P95 SLA 时才会复用。</p><div class="refgrid"><div class="ref"><a href="https://docs.nvidia.com/nim/benchmarking/llm/latest/metrics.html" target="_blank" rel="noopener">NVIDIA NIM · Metrics ↗</a>TPS 应与 TTFT、ITL 等时延指标一起解释；并发增加到饱和后，系统 TPS 可能下降。</div><div class="ref"><a href="https://docs.nvidia.com/nim/benchmarking/llm/latest/parameters.html" target="_blank" rel="noopener">NVIDIA NIM · Parameters ↗</a>并发、批处理、输入/输出长度与队列共同影响实际吞吐。</div><div class="ref"><a href="https://docs.vllm.ai/en/latest/cli/bench/serve/" target="_blank" rel="noopener">vLLM · Bench Serve ↗</a>压测应固定输入长度、输出长度、请求率和最大并发，形成可复用的工作负载签名。</div><div class="ref"><a href="https://api-docs.deepseek.com/news/news260424/" target="_blank" rel="noopener">DeepSeek · V4 官方说明 ↗</a>V4-Flash 为 284B 总参数 / 13B 激活；V4-Pro 为 1.6T 总参数 / 49B 激活。</div><div class="ref"><a href="https://huggingface.co/moonshotai/Kimi-K3" target="_blank" rel="noopener">Moonshot AI · Kimi K3 ↗</a>官方开放权重：2.8T 总参数 / 104B 激活。</div><div class="ref"><a href="https://huggingface.co/moonshotai/Kimi-K2.7-Code" target="_blank" rel="noopener">Moonshot AI · Kimi K2.7 Code ↗</a>官方模型卡：1T 总参数 / 32B 激活。</div><div class="ref"><a href="https://cloud.zidongtaichu.com/home" target="_blank" rel="noopener">紫东太初云 · 当前公开模型 ↗</a>公开首页当前展示 DeepSeek V3.2、Kimi K2.5 等模型。</div><div class="ref"><a href="https://docs.zidongtaichu.com/intelligent/maas/use_model.html" target="_blank" rel="noopener">紫东太初 · 模型调用文档 ↗</a>模型实际可用状态应以当前平台控制台为准。</div></div><div class="footnote">权重显存按 B/参数近似并扣除用户设置的预留比例，不包含精确 KV Cache、激活、通信缓冲和运行时内存；HBM 带宽仅显示低批次参考，不再直接限制 Aggregate Output TPS。模型参数与量化倍率落地前仍需复核。</div></div></details></section>
 </main></div>
@@ -107,7 +107,7 @@
       <div class="benchmark-explain" id="benchmarkDerived">填写单副本实测吞吐后，系统将以“实测 TPS × 完整副本数 × 调度效率”计算总吞吐。</div>
       <div class="benchmark-list"><div class="benchmark-list-title"><span>本机已保存配置</span><span id="benchmarkCount">0 个</span></div><div id="benchmarkList"><div class="benchmark-empty">暂无单副本压测配置。</div></div></div>
     </div>
-    <div class="model-modal-foot"><div class="actions"><button type="button" class="primary" id="saveBenchmark">保存并应用</button><button type="button" class="ghost" id="deactivateBenchmark">停用当前压测</button><button type="button" class="ghost" id="deleteBenchmark" disabled>删除所选</button></div><p class="hint">只填写一个完整模型副本的 Aggregate Output TPS；系统会按模型、硬件、TP/PP/EP、运行时、ISL/OSL、并发和可选 SLA 严格匹配。配置仅保存在当前浏览器。</p></div>
+    <div class="model-modal-foot"><div class="actions"><button type="button" class="primary" id="saveBenchmark">保存并应用</button><button type="button" class="ghost" id="deactivateBenchmark">停用当前压测</button><button type="button" class="ghost" id="deleteBenchmark" disabled>删除所选</button></div><p class="hint">只填写一个完整模型副本的 Aggregate Output TPS；系统会按模型、硬件、TP/PP/EP、互联带宽与 RDMA、运行时、ISL/OSL、并发和可选 SLA 严格匹配。配置仅保存在当前浏览器。</p></div>
   </section>
 </div>
 <script>
@@ -116,7 +116,7 @@ $('eff').closest('.field').id='effField';
 $('effField').classList.remove('advanced-field');
 let qpsMode=false;
 let multiMode=false;
-let plannedReplicas=1;
+let plannedReplicas='1';
 let selectedSavedPresetId='';
 const multiDetailsCollapseKey='zdt-token-api-multi-details-collapsed-v1';
 let multiDetailsCollapsed=(()=>{try{const saved=localStorage.getItem(multiDetailsCollapseKey);return saved===null?true:saved==='1'}catch{return true}})();
@@ -129,7 +129,8 @@ $('fitStatus').insertAdjacentElement('afterend',clusterStatusElement);
 const theoreticalMetric=$('theoreticalTps').closest('.metric');
 theoreticalMetric.querySelector('.label').id='theoreticalLabel';
 theoreticalMetric.querySelector('.unit').id='theoreticalUnit';
-document.querySelector('.formula').innerHTML='<b>固定计算规则：</b><code>单副本 Decode 上限 = 副本内全部卡 FLOPS ÷ (2 × 激活参数)</code>；无压测容量再乘副本内并行效率和内核与服务效率，匹配压测后直接采用同硬件、拓扑、运行时、工作负载与 SLA 下的 Aggregate Output TPS。<code>总吞吐 = 单副本吞吐 × 完整副本数 × 实际生效调度效率</code>；成本按所有付费节点月租除以有效期输出 Token。';
+document.querySelector('.formula').innerHTML='<b>固定计算规则：</b><code>单副本 Decode 上限 = 副本内全部卡 FLOPS ÷ (2 × 激活参数)</code>；无压测容量再乘副本内并行效率和内核与服务效率，严格匹配压测后采用同硬件、拓扑、互联、运行时与工作负载下的 Aggregate Output TPS。<code>总吞吐 = 单副本吞吐 × 独立完整副本数 × 实际生效调度效率</code>；QPS 无压测规划负载同时计入可修改的 Prefill 等效负载，成本只除以有效期输出 Token。';
+document.querySelector('.refs-body>p').textContent='本工具用于容量规划与硬件成本预估。理论值是 Decode FLOPS 粗略上限；QPS 无压测估算使用可修改的 Prefill 等效负载、独立规划系数、目标负载率和副本调度效率，避免把理论峰值直接当作生产容量。压测只有在模型、硬件、精度、TP/PP/EP 拓扑、跨节点互联与 RDMA、运行时、ISL/OSL 与并发一致，并满足已设置的 P95 SLA 时才会复用。';
 [
   ['vLLM · Parallelism and Scaling ↗','https://docs.vllm.ai/en/latest/serving/parallelism_scaling/','TP/PP 用于让一个模型副本跨节点容纳；节点数不等于独立服务副本数。'],
   ['vLLM · Data Parallel Deployment ↗','https://docs.vllm.ai/en/stable/serving/data_parallel_deployment/','完整模型副本处理独立请求批次，总吞吐才可按副本扩展。'],
@@ -160,8 +161,8 @@ const profiles={
   llama3_8:{name:'LLaMA3-8B',arch:'dense',active:8,total:8},
   gemma2:{name:'Gemma-2B',arch:'dense',active:2,total:2}
 };
-const ids=['model','arch','precision','activeParams','totalParams','hardwareName','cardTflops','computeMultiplier','cards','nodeCardCapacity','machines','parallelEff','replicas','scaleEff','tpSize','ppSize','epSize','runtimeFramework','runtimeVersion','slaTtft','slaItl','memory','hbmReserve','bandwidth','rent','days','hoursPerDay','eff','margin','qps','outTokens','qpsPlanningEff','targetUtil','inTokens','qpsConcurrency','reserveReplicas'];
-const stringIds=new Set(['model','arch','hardwareName','runtimeFramework','runtimeVersion']);
+const ids=['model','arch','precision','activeParams','totalParams','hardwareName','cardTflops','computeMultiplier','cards','nodeCardCapacity','machines','parallelEff','replicas','scaleEff','tpSize','ppSize','epSize','networkFabric','networkBandwidth','rdmaMode','runtimeFramework','runtimeVersion','slaTtft','slaItl','memory','hbmReserve','bandwidth','rent','days','hoursPerDay','eff','margin','qps','outTokens','qpsPlanningEff','targetUtil','inTokens','prefillFactor','qpsConcurrency','reserveReplicas'];
+const stringIds=new Set(['model','arch','hardwareName','networkFabric','rdmaMode','runtimeFramework','runtimeVersion']);
 const fmt=(n,d=0)=>Number.isFinite(n)?new Intl.NumberFormat('zh-CN',{maximumFractionDigits:d,minimumFractionDigits:d}).format(n):'—';
 const compact=n=>n>=1e12?fmt(n/1e12,2)+'T':n>=1e9?fmt(n/1e9,2)+'B':n>=1e6?fmt(n/1e6,2)+'M':fmt(n);
 const unitCost=(rent,tps,days,hoursPerDay=24)=>tps>0&&days>0&&hoursPerDay>0?rent/(tps*days*hoursPerDay*3600)*1e6:NaN;
@@ -196,8 +197,8 @@ function precisionCalibrationId(x){
     String(x.precision),
     String(x.hardwareName||'').trim().toLowerCase(),
     Number(x.cardTflops)||0,
-    Math.max(1,Math.floor(Number(x.cards)||1)),
-    Math.max(1,Math.floor(Number(x.nodeCardCapacity)||1))
+    positiveInteger(x.cards)?Number(x.cards):0,
+    positiveInteger(x.nodeCardCapacity)?Number(x.nodeCardCapacity):0
   ].join('|');
 }
 
@@ -209,9 +210,30 @@ function sameText(a,b){
   return String(a||'').trim().toLowerCase()===String(b||'').trim().toLowerCase();
 }
 
+function positiveInteger(value){
+  return Number.isInteger(Number(value))&&Number(value)>=1;
+}
+
+function topologyConfigurationValid(x,totalCards){
+  return positiveInteger(x.tpSize)&&positiveInteger(x.ppSize)&&positiveInteger(x.epSize)&&
+    x.tpSize<=totalCards&&x.ppSize<=totalCards&&x.epSize<=totalCards&&x.tpSize*x.ppSize<=totalCards;
+}
+
+function currentBenchmarkFingerprintComplete(x,totalCards){
+  return topologyConfigurationValid(x,totalCards)&&Boolean(String(x.networkFabric||'').trim())&&
+    x.networkBandwidth>0&&['enabled','disabled'].includes(x.rdmaMode)&&
+    Boolean(String(x.runtimeFramework||'').trim())&&Boolean(String(x.runtimeVersion||'').trim());
+}
+
+function savedBenchmarkFingerprintComplete(entry){
+  return Boolean(entry)&&positiveInteger(entry.tpSize)&&positiveInteger(entry.ppSize)&&positiveInteger(entry.epSize)&&
+    Boolean(String(entry.networkFabric||'').trim())&&Number(entry.networkBandwidth)>0&&
+    ['enabled','disabled'].includes(entry.rdmaMode)&&Boolean(String(entry.framework||'').trim())&&Boolean(String(entry.version||'').trim());
+}
+
 function benchmarkHardwareMatches(entry,x,machines,cardsPerMachine){
   const savedHardware=entry?.hardwareName||'Ascend 910C';
-  const savedNodeCapacity=Number(entry?.nodeCardCapacity)||Math.max(8,Number(entry?.cardsPerMachine)||1);
+  const savedNodeCapacity=Number(entry?.nodeCardCapacity);
   return Boolean(entry)&&
     sameText(entry.model,x.model)&&
     entry.arch===x.arch&&
@@ -228,6 +250,9 @@ function benchmarkHardwareMatches(entry,x,machines,cardsPerMachine){
     Number(entry.tpSize||0)===Math.floor(x.tpSize)&&
     Number(entry.ppSize||0)===Math.floor(x.ppSize)&&
     Number(entry.epSize||0)===Math.floor(x.epSize)&&
+    sameText(entry.networkFabric,x.networkFabric)&&
+    sameNumber(entry.networkBandwidth,x.networkBandwidth)&&
+    entry.rdmaMode===x.rdmaMode&&
     sameText(entry.framework,x.runtimeFramework)&&
     sameText(entry.version,x.runtimeVersion);
 }
@@ -256,13 +281,24 @@ function getActiveBenchmark(){
 
 function updateBenchmarkDerived(){
   const replicaTps=Math.max(0,Number($('benchmarkClusterTps').value)||0);
-  const replicas=Math.max(1,Math.floor(Number($('replicas').value)||1));
-  const dispatchEff=replicas>1?Math.max(.01,Math.min(1,(Number($('scaleEff').value)||100)/100)):1;
+  const rawReplicas=Number($('replicas').value);
+  const replicas=positiveInteger(rawReplicas)?rawReplicas:0;
+  const rawDispatch=Number($('scaleEff').value);
+  const dispatchValid=rawDispatch>0&&rawDispatch<=100;
+  const dispatchEff=replicas>1&&dispatchValid?rawDispatch/100:replicas<=1?1:0;
   const inputTokens=Math.max(0,Number($('benchmarkInputTokens').value)||0);
   const outputTokens=Math.max(0,Number($('benchmarkOutputTokens').value)||0);
   const concurrency=Math.max(0,Number($('benchmarkConcurrency').value)||0);
   if(!replicaTps){
     $('benchmarkDerived').textContent='填写单副本实测吞吐与工作负载后，系统将以“实测 TPS × 完整副本数 × 副本间调度效率”计算总吞吐。';
+    return;
+  }
+  if(!replicas){
+    $('benchmarkDerived').textContent=`单副本实测 ${fmt(replicaTps)} token/s；当前完整副本数无效，修正后才会计算总吞吐。`;
+    return;
+  }
+  if(replicas>1&&!dispatchValid){
+    $('benchmarkDerived').textContent=`单副本实测 ${fmt(replicaTps)} token/s；当前副本间调度效率无效，修正后才会计算总吞吐。`;
     return;
   }
   const total=replicaTps*replicas*dispatchEff;
@@ -298,8 +334,12 @@ function renderClusterBenchmarks(){
       :' · 旧配置：缺少工作负载签名';
     const runtime=item.framework?` · ${item.framework}${item.version?' '+item.version:''}`:'';
     const topology=[item.tpSize?`TP${item.tpSize}`:'',item.ppSize?`PP${item.ppSize}`:'',item.epSize?`EP${item.epSize}`:''].filter(Boolean).join('/');
+    const network=item.networkFabric&&Number(item.networkBandwidth)>0&&['enabled','disabled'].includes(item.rdmaMode)
+      ?` · ${item.networkFabric} ${fmt(Number(item.networkBandwidth))}Gb/s · RDMA${item.rdmaMode==='enabled'?'开':'关'}`
+      :' · 旧配置：缺少互联指纹';
     const sla=[item.ttft?`TTFT≤${fmt(item.ttft,1)}ms`:'',item.itl?`ITL≤${fmt(item.itl,1)}ms`:''].filter(Boolean).join(' / ');
-    detail.textContent=`${item.model} · ${item.hardwareName||'Ascend 910C'} · 单副本 ${item.machines} 节点 × ${item.cardsPerMachine} 卡 · ${item.precisionLabel}${topology?' · '+topology:''}${runtime}${workload}${sla?' · '+sla:''}`;
+    const fingerprint=savedBenchmarkFingerprintComplete(item)?'':' · 不会严格应用，需补全并重新保存';
+    detail.textContent=`${item.model} · ${item.hardwareName||'Ascend 910C'} · 单副本 ${item.machines} 节点 × ${item.cardsPerMachine} 卡 · ${item.precisionLabel}${topology?' · '+topology:''}${network}${runtime}${workload}${sla?' · '+sla:''}${fingerprint}`;
     const tps=document.createElement('strong');
     tps.textContent=fmt(item.clusterTps)+' token/s';
     meta.append(title,detail);
@@ -380,7 +420,11 @@ function applyProfile(profileKey){
 }
 
 function read(){
-  return Object.fromEntries(ids.map(id=>[id,stringIds.has(id)?$(id).value:Math.max(0,Number($(id).value)||0)]));
+  return Object.fromEntries(ids.map(id=>{
+    if(stringIds.has(id))return[id,$(id).value];
+    const value=Number($(id).value);
+    return[id,Number.isFinite(value)?value:0];
+  }));
 }
 
 function renderMultiDetailsDisclosure(){
@@ -428,13 +472,16 @@ function applyClusterBenchmark(id){
   $('computeMultiplier').value=item.computeMultiplier;
   $('hardwareName').value=item.hardwareName||'Ascend 910C';
   $('cards').value=item.cardsPerMachine;
-  $('nodeCardCapacity').value=item.nodeCardCapacity||Math.max(8,Number(item.cardsPerMachine)||1);
+  if(positiveInteger(item.nodeCardCapacity))$('nodeCardCapacity').value=item.nodeCardCapacity;
   $('machines').value=item.machines;
   $('memory').value=item.memory;
   $('bandwidth').value=item.bandwidth;
-  $('tpSize').value=item.tpSize||0;
-  $('ppSize').value=item.ppSize||0;
-  $('epSize').value=item.epSize||0;
+  if(positiveInteger(item.tpSize))$('tpSize').value=item.tpSize;
+  if(positiveInteger(item.ppSize))$('ppSize').value=item.ppSize;
+  if(positiveInteger(item.epSize))$('epSize').value=item.epSize;
+  if(item.networkFabric)$('networkFabric').value=item.networkFabric;
+  if(Number(item.networkBandwidth)>0)$('networkBandwidth').value=item.networkBandwidth;
+  if(['enabled','disabled'].includes(item.rdmaMode))$('rdmaMode').value=item.rdmaMode;
   $('runtimeFramework').value=item.framework||'';
   $('runtimeVersion').value=item.version||'';
   if(item.inputTokens)$('inTokens').value=item.inputTokens;
@@ -459,20 +506,36 @@ function applyClusterBenchmark(id){
 }
 
 function saveClusterBenchmark(){
-  const clusterTps=Math.max(0,Number($('benchmarkClusterTps').value)||0);
-  const concurrency=Math.max(0,Number($('benchmarkConcurrency').value)||0);
-  const inputTokens=Math.max(0,Number($('benchmarkInputTokens').value)||0);
-  const outputTokens=Math.max(0,Number($('benchmarkOutputTokens').value)||0);
+  const clusterTps=Number($('benchmarkClusterTps').value);
+  const concurrency=Number($('benchmarkConcurrency').value);
+  const inputTokens=Number($('benchmarkInputTokens').value);
+  const outputTokens=Number($('benchmarkOutputTokens').value);
+  const ttft=Number($('benchmarkTtft').value||0);
+  const itl=Number($('benchmarkItl').value||0);
   const framework=$('benchmarkFramework').value.trim();
   const version=$('benchmarkVersion').value.trim();
-  if(!clusterTps||!concurrency||!inputTokens||!outputTokens||!framework||!version){
+  if(!(clusterTps>0)||!positiveInteger(concurrency)||!(inputTokens>0)||!(outputTokens>0)||!framework||!version||ttft<0||itl<0){
     alert('请完整填写实测吞吐、并发、ISL、OSL、推理框架和版本。');
     $('benchmarkClusterTps').focus();
     return;
   }
   const x=read();
-  const machines=Math.max(2,Math.floor(x.machines));
-  const cardsPerMachine=Math.max(1,Math.floor(x.cards));
+  const machines=x.machines;
+  const cardsPerMachine=x.cards;
+  const totalCards=machines*cardsPerMachine;
+  const fingerprintCandidate={...x,runtimeFramework:framework,runtimeVersion:version};
+  if(!String(x.model||'').trim()||x.activeParams<=0||x.totalParams<=0||x.activeParams>x.totalParams||x.cardTflops<=0||x.computeMultiplier<=0||x.memory<=0){
+    alert('请先填写有效的模型名称、参数量、基准算力、量化倍率和显存。');
+    return;
+  }
+  if(!positiveInteger(machines)||machines<2||!positiveInteger(cardsPerMachine)||!positiveInteger(x.nodeCardCapacity)||cardsPerMachine>x.nodeCardCapacity){
+    alert('请先填写有效的单副本节点数、每节点卡数和整机标准卡数；多机单副本至少需要 2 个节点。');
+    return;
+  }
+  if(!currentBenchmarkFingerprintComplete(fingerprintCandidate,totalCards)){
+    alert('请完整填写有效的 TP/PP/EP、跨节点互联类型、互联带宽、RDMA 状态、推理框架和版本后再保存压测。');
+    return;
+  }
   const items=loadClusterBenchmarks();
   const existing=items.find(item=>item.id===selectedBenchmarkId);
   const id=existing?.id||(globalThis.crypto?.randomUUID?.()||String(Date.now()));
@@ -489,11 +552,14 @@ function saveClusterBenchmark(){
     cardTflops:x.cardTflops,
     computeMultiplier:x.computeMultiplier,
     cardsPerMachine,
-    nodeCardCapacity:Math.max(1,Math.floor(x.nodeCardCapacity)),
+    nodeCardCapacity:x.nodeCardCapacity,
     machines,
-    tpSize:Math.max(0,Math.floor(x.tpSize)),
-    ppSize:Math.max(0,Math.floor(x.ppSize)),
-    epSize:Math.max(0,Math.floor(x.epSize)),
+    tpSize:x.tpSize,
+    ppSize:x.ppSize,
+    epSize:x.epSize,
+    networkFabric:x.networkFabric.trim(),
+    networkBandwidth:x.networkBandwidth,
+    rdmaMode:x.rdmaMode,
     memory:x.memory,
     bandwidth:x.bandwidth,
     clusterTps,
@@ -502,14 +568,17 @@ function saveClusterBenchmark(){
     outputTokens,
     framework,
     version,
-    ttft:Math.max(0,Number($('benchmarkTtft').value)||0),
-    itl:Math.max(0,Number($('benchmarkItl').value)||0),
+    ttft,
+    itl,
     note:$('benchmarkNote').value.trim(),
     updatedAt:new Date().toISOString()
   };
   writeClusterBenchmarks(existing?items.map(item=>item.id===id?entry:item):[...items,entry]);
   $('runtimeFramework').value=framework;
   $('runtimeVersion').value=version;
+  $('inTokens').value=inputTokens;
+  $('outTokens').value=outputTokens;
+  $('qpsConcurrency').value=concurrency;
   selectedBenchmarkId=id;
   setActiveBenchmark(id);
   calculate();
@@ -536,7 +605,7 @@ function deactivateClusterBenchmark(){
 
 function setMode(mode){
   const nextQpsMode=mode==='qps';
-  if(nextQpsMode&&!qpsMode)plannedReplicas=Math.max(1,Math.floor(Number($('replicas').value)||1));
+  if(nextQpsMode&&!qpsMode)plannedReplicas=$('replicas').value;
   if(!nextQpsMode&&qpsMode)$('replicas').value=plannedReplicas;
   qpsMode=nextQpsMode;
   $('capacityBtn').classList.toggle('on',!qpsMode);
@@ -560,14 +629,26 @@ function setMode(mode){
 
 function calculate(){
   const x=read();
-  const machines=multiMode?Math.max(2,Math.floor(x.machines)):1;
-  const replicas=multiMode?Math.max(1,Math.floor(x.replicas)):1;
-  const cardsPerMachine=Math.max(1,Math.floor(x.cards));
-  const nodeCardCapacity=Math.max(1,Math.floor(x.nodeCardCapacity));
+  const cardCountValid=positiveInteger(x.cards);
+  const nodeCapacityValid=positiveInteger(x.nodeCardCapacity);
+  const machineCountValid=!multiMode||(positiveInteger(x.machines)&&x.machines>=2);
+  const manualReplicaCountValid=!multiMode||qpsMode||positiveInteger(x.replicas);
+  const cardsPerMachine=cardCountValid?x.cards:0;
+  const nodeCardCapacity=nodeCapacityValid?x.nodeCardCapacity:0;
+  const machines=multiMode?(machineCountValid?x.machines:0):1;
+  const replicas=multiMode?(positiveInteger(x.replicas)?x.replicas:0):1;
   const totalCards=machines*cardsPerMachine;
   const fleetCards=totalCards*replicas;
-  const parallelFactor=multiMode?Math.max(.01,Math.min(1,x.parallelEff/100)):1;
-  const replicaDispatchSetting=multiMode?Math.max(.01,Math.min(1,x.scaleEff/100)):1;
+  const parallelSettingValid=!multiMode||(x.parallelEff>0&&x.parallelEff<=100);
+  const dispatchSettingValid=!multiMode||(x.scaleEff>0&&x.scaleEff<=100);
+  const capacityEfficiencyValid=qpsMode||(x.eff>0&&x.eff<=100);
+  const planningFactorValid=!qpsMode||(x.qpsPlanningEff>0&&x.qpsPlanningEff<=100);
+  const targetUtilValid=!qpsMode||(x.targetUtil>0&&x.targetUtil<=100);
+  const reserveCountValid=!qpsMode||(Number.isInteger(x.reserveReplicas)&&x.reserveReplicas>=0);
+  const prefillFactorValid=!qpsMode||x.prefillFactor>=0;
+  const workloadValid=!qpsMode||(x.qps>0&&x.outTokens>0&&x.inTokens>0&&positiveInteger(x.qpsConcurrency)&&prefillFactorValid);
+  const parallelFactor=multiMode&&parallelSettingValid?x.parallelEff/100:multiMode?0:1;
+  const replicaDispatchSetting=multiMode&&dispatchSettingValid?x.scaleEff/100:multiMode?0:1;
   const replicaDispatchFactor=replicas>1?replicaDispatchSetting:1;
   const compute=replicaComputeCeiling(x,cardsPerMachine,machines);
   const weightGB=x.totalParams*x.precision;
@@ -575,27 +656,32 @@ function calculate(){
   const bandwidthReference=x.bandwidth>0&&activeWeightGB>0?(x.bandwidth*totalCards)/activeWeightGB:NaN;
   const theoretical=compute;
   const selectedBenchmark=getActiveBenchmark();
+  const currentFingerprintComplete=multiMode&&currentBenchmarkFingerprintComplete(x,totalCards);
+  const selectedFingerprintComplete=savedBenchmarkFingerprintComplete(selectedBenchmark);
   const benchmarkHardwareMatch=multiMode&&benchmarkHardwareMatches(selectedBenchmark,x,machines,cardsPerMachine);
   const benchmarkWorkloadMatch=benchmarkHardwareMatch&&benchmarkWorkloadMatches(selectedBenchmark,x);
   const benchmarkSlaMatch=benchmarkWorkloadMatch&&benchmarkSlaMatches(selectedBenchmark,x);
-  const benchmarkApplied=benchmarkHardwareMatch&&benchmarkWorkloadMatch&&benchmarkSlaMatch;
+  const benchmarkApplied=currentFingerprintComplete&&selectedFingerprintComplete&&benchmarkHardwareMatch&&benchmarkWorkloadMatch&&benchmarkSlaMatch;
   const benchmarkTps=benchmarkApplied?Math.max(0,Number(selectedBenchmark.clusterTps)||0):0;
   const replicaCapacity=benchmarkTps||theoretical*parallelFactor*x.eff/100;
   const capacity=replicaCapacity*replicas*replicaDispatchFactor;
   const demand=x.qps*x.outTokens;
-  const planningFactor=Math.max(.01,Math.min(1,x.qpsPlanningEff/100));
-  const targetUtilFactor=Math.max(.01,Math.min(1,x.targetUtil/100));
+  const equivalentTokensPerRequest=x.outTokens+x.inTokens*Math.max(0,x.prefillFactor);
+  const equivalentDemand=x.qps*equivalentTokensPerRequest;
+  const sizingDemand=benchmarkTps?demand:equivalentDemand;
+  const planningFactor=planningFactorValid?x.qpsPlanningEff/100:0;
+  const targetUtilFactor=targetUtilValid?x.targetUtil/100:0;
   const estimatedPlanningTps=theoretical*parallelFactor*planningFactor;
   const planningReplicaTps=benchmarkTps||estimatedPlanningTps;
-  const rawActiveSystems=qpsMode&&demand>0&&planningReplicaTps>0?Math.max(1,Math.ceil(demand/(planningReplicaTps*targetUtilFactor))):0;
+  const rawActiveSystems=qpsMode&&workloadValid&&sizingDemand>0&&planningReplicaTps>0&&targetUtilFactor>0?Math.max(1,Math.ceil(sizingDemand/(planningReplicaTps*targetUtilFactor))):0;
   const qpsDispatchFactor=rawActiveSystems>1?replicaDispatchSetting:1;
-  const activeSystems=qpsMode&&demand>0&&planningReplicaTps>0?Math.max(1,Math.ceil(demand/(planningReplicaTps*targetUtilFactor*qpsDispatchFactor))):0;
-  const reserveSystems=qpsMode&&demand>0?Math.max(0,Math.floor(x.reserveReplicas)):0;
+  const activeSystems=qpsMode&&workloadValid&&sizingDemand>0&&planningReplicaTps>0&&targetUtilFactor>0&&qpsDispatchFactor>0?Math.max(1,Math.ceil(sizingDemand/(planningReplicaTps*targetUtilFactor*qpsDispatchFactor))):0;
+  const reserveSystems=qpsMode&&workloadValid&&reserveCountValid?x.reserveReplicas:0;
   const paidSystems=activeSystems+reserveSystems;
-  const displayedReplicas=multiMode&&qpsMode?paidSystems:replicas;
+  const displayedReplicas=qpsMode?paidSystems:replicas;
   if(multiMode&&qpsMode)$('replicas').value=displayedReplicas;
   const displayedFleetCards=totalCards*displayedReplicas;
-  const perSystemLoad=activeSystems>0&&planningReplicaTps>0?demand/(planningReplicaTps*activeSystems*qpsDispatchFactor)*100:0;
+  const perSystemLoad=activeSystems>0&&planningReplicaTps>0&&qpsDispatchFactor>0?sizingDemand/(planningReplicaTps*activeSystems*qpsDispatchFactor)*100:0;
   const tps=qpsMode?demand:capacity;
   const instanceRent=x.rent*machines;
   const fleetRent=instanceRent*replicas;
@@ -610,7 +696,8 @@ function calculate(){
   const midC=unitCost(fleetRent,capacity,x.days,x.hoursPerDay);
   const highC=unitCost(fleetRent,high,x.days,x.hoursPerDay);
   const rawHbm=x.memory*totalCards;
-  const hbmReserveFactor=1-Math.max(0,Math.min(.9,x.hbmReserve/100));
+  const hbmReserveValid=x.hbmReserve>=0&&x.hbmReserve<100;
+  const hbmReserveFactor=hbmReserveValid?1-x.hbmReserve/100:0;
   const usableHbm=rawHbm*hbmReserveFactor;
   const fleetHbm=rawHbm*replicas;
   const displayedFleetHbm=rawHbm*displayedReplicas;
@@ -620,20 +707,41 @@ function calculate(){
     {id:'precisionInt4',value:.5,label:'INT4/MXFP4'}
   ];
   const selectedPrecision=precisionOptions.find(option=>option.value===x.precision)||precisionOptions[0];
-  const fit=weightGB<=usableHbm;
-  const cardsWithinNode=cardsPerMachine<=nodeCardCapacity;
+  const precisionValid=precisionOptions.some(option=>option.value===x.precision);
+  const cardsWithinNode=cardCountValid&&nodeCapacityValid&&cardsPerMachine<=nodeCardCapacity;
+  const fit=precisionValid&&x.totalParams>0&&x.memory>0&&totalCards>0&&weightGB<=usableHbm;
   const modelParamsValid=x.activeParams>0&&x.totalParams>0&&x.activeParams<=x.totalParams;
-  const hardwareInputsValid=Boolean(String(x.hardwareName||'').trim())&&x.cardTflops>0&&x.computeMultiplier>0&&x.memory>0;
-  const workloadValid=!qpsMode||demand>0;
-  const billingTimeValid=x.days>0&&x.hoursPerDay>0;
-  const configurationValid=fit&&cardsWithinNode&&modelParamsValid&&hardwareInputsValid&&workloadValid&&billingTimeValid;
+  const hardwareInputsValid=Boolean(String(x.hardwareName||'').trim())&&x.cardTflops>0&&x.computeMultiplier>0&&x.memory>0&&x.bandwidth>=0;
+  const topologyValid=!multiMode||topologyConfigurationValid(x,totalCards);
+  const optionalLimitsValid=x.networkBandwidth>=0&&x.slaTtft>=0&&x.slaItl>=0;
+  const billingTimeValid=x.rent>=0&&x.days>0&&x.days<=31&&x.hoursPerDay>0&&x.hoursPerDay<=24;
+  const marginValid=x.margin>=0&&x.margin<100;
+  const efficiencySettingsValid=parallelSettingValid&&dispatchSettingValid&&capacityEfficiencyValid&&planningFactorValid&&targetUtilValid;
+  const countSettingsValid=cardCountValid&&nodeCapacityValid&&machineCountValid&&manualReplicaCountValid&&reserveCountValid;
+  const configurationValid=fit&&cardsWithinNode&&modelParamsValid&&hardwareInputsValid&&precisionValid&&workloadValid&&billingTimeValid&&marginValid&&hbmReserveValid&&optionalLimitsValid&&efficiencySettingsValid&&countSettingsValid&&topologyValid;
   const invalidReasons=[];
   if(!modelParamsValid)invalidReasons.push('激活参数必须大于 0 且不超过总参数');
+  if(!precisionValid)invalidReasons.push('权重精度必须使用系统支持的口径');
   if(!hardwareInputsValid)invalidReasons.push('硬件型号、算力和显存必须有效');
-  if(!cardsWithinNode)invalidReasons.push(`每节点实际 ${cardsPerMachine} 张超过整机标准 ${nodeCardCapacity} 张`);
+  if(!cardCountValid)invalidReasons.push('每节点实际卡数必须是大于 0 的整数');
+  if(!nodeCapacityValid)invalidReasons.push('整机标准卡数必须是大于 0 的整数');
+  if(multiMode&&!machineCountValid)invalidReasons.push('多机单副本节点数必须是至少 2 的整数');
+  if(multiMode&&!qpsMode&&!manualReplicaCountValid)invalidReasons.push('完整副本数必须是大于 0 的整数');
+  if(cardCountValid&&nodeCapacityValid&&!cardsWithinNode)invalidReasons.push(`每节点实际 ${cardsPerMachine} 张超过整机标准 ${nodeCardCapacity} 张`);
+  if(multiMode&&!topologyValid)invalidReasons.push('TP/PP/EP 必须为正整数，且 TP × PP 不得超过单副本总卡数');
   if(!fit)invalidReasons.push('当前单副本权重无法放入预留后的可用显存');
-  if(!workloadValid)invalidReasons.push('QPS 与平均输出 Token 必须形成大于 0 的需求');
-  if(!billingTimeValid)invalidReasons.push('运行天数和日均有效负载时长必须大于 0');
+  if(!parallelSettingValid)invalidReasons.push('副本内并行效率必须大于 0% 且不超过 100%');
+  if(!dispatchSettingValid)invalidReasons.push('副本间调度效率必须大于 0% 且不超过 100%');
+  if(!capacityEfficiencyValid)invalidReasons.push('内核与服务效率必须大于 0% 且不超过 100%');
+  if(!planningFactorValid)invalidReasons.push('QPS 规划系数必须大于 0% 且不超过 100%');
+  if(!targetUtilValid)invalidReasons.push('目标副本负载率必须大于 0% 且不超过 100%');
+  if(!reserveCountValid)invalidReasons.push('额外冗余副本必须是非负整数');
+  if(!prefillFactorValid)invalidReasons.push('Prefill 等效负载系数不得为负数');
+  if(!workloadValid)invalidReasons.push('QPS、输出 Token、输入 Token和目标并发必须形成有效工作负载');
+  if(!hbmReserveValid)invalidReasons.push('显存预留率必须在 0%（含）到 100%（不含）之间');
+  if(!optionalLimitsValid)invalidReasons.push('互联带宽与可选 SLA 上限不得为负数');
+  if(!billingTimeValid)invalidReasons.push('月租不得为负，运行天数须在 1–31 天、日均时长须大于 0 且不超过 24 小时');
+  if(!marginValid)invalidReasons.push('目标毛利率必须在 0%（含）到 100%（不含）之间');
   const price=configurationValid&&x.margin<100?cost/(1-x.margin/100):NaN;
   const usableMemoryPerCard=x.memory*hbmReserveFactor;
   const cardsNeeded=usableMemoryPerCard>0?Math.ceil(weightGB/usableMemoryPerCard):0;
@@ -644,8 +752,10 @@ function calculate(){
   const benchmarkMismatch=multiMode&&Boolean(selectedBenchmark)&&!benchmarkApplied;
   const multiWarnings=[];
   if(multiMode&&!fit)multiWarnings.push('单副本显存不足');
-  if(multiMode&&!cardsWithinNode)multiWarnings.push('每节点卡数超整机规格');
+  if(multiMode&&(!cardCountValid||!nodeCapacityValid||!machineCountValid||!manualReplicaCountValid))multiWarnings.push('节点、卡数或副本数无效');
+  if(multiMode&&cardCountValid&&nodeCapacityValid&&!cardsWithinNode)multiWarnings.push('每节点卡数超整机规格');
   if(multiMode&&!modelParamsValid)multiWarnings.push('模型参数无效');
+  if(multiMode&&!topologyValid)multiWarnings.push('TP/PP/EP 拓扑无效');
   if(benchmarkMismatch)multiWarnings.push('压测配置不匹配');
   multiDetailsForcedOpen=multiWarnings.length>0;
   $('multiAttention').hidden=!multiDetailsForcedOpen;
@@ -656,8 +766,8 @@ function calculate(){
     :qpsMode
       ?`估算综合 ${fmt(parallelFactor*planningFactor*100,1)}%`
       :`估算综合 ${fmt(parallelFactor*x.eff,1)}%`;
-  const summaryReplicaText=qpsMode?`服务 ${activeSystems} + 冗余 ${reserveSystems} 副本`:`${displayedReplicas} 副本`;
-  $('multiSummary').textContent=`${machines} 节点/副本 × ${summaryReplicaText} · 共 ${displayedFleetCards} 卡 · ${summaryBasis} · 调度 ${fmt(effectiveDispatchFactor*100,1)}%`;
+  const summaryReplicaText=qpsMode?`服务 ${activeSystems} + 冗余 ${reserveSystems}`:`${displayedReplicas}`;
+  $('multiSummary').textContent=`单副本 ${machineCountValid?machines:'—'} 节点 / ${totalCards} 卡 · 独立副本 ${summaryReplicaText} · 全部 ${displayedFleetCards} 卡 · ${summaryBasis} · 调度 ${fmt(effectiveDispatchFactor*100,1)}%`;
   renderMultiDetailsDisclosure();
   const bar=$('utilBar');
 
@@ -665,6 +775,7 @@ function calculate(){
   $('parallelEff').disabled=!multiMode||benchmarkApplied;
   $('scaleEff').disabled=!multiMode||(qpsMode?activeSystems<=1:replicas<=1);
   $('qpsPlanningEff').disabled=qpsMode&&benchmarkApplied;
+  $('prefillFactor').disabled=qpsMode&&benchmarkApplied;
   $('effField').classList.toggle('mode-disabled',qpsMode||benchmarkApplied);
   $('effHint').textContent=qpsMode
     ?'QPS 模式不使用容量估算系数；无匹配压测时改用独立的内核与业务规划系数。'
@@ -693,6 +804,8 @@ function calculate(){
         :`当前组合暂无保存值，按 ${fmt(x.computeMultiplier,2)} 估算。`;
   const benchmarkScope=benchmarkApplied
     ?`单副本口径：采用实测 TPS（ISL/OSL ${fmt(selectedBenchmark.inputTokens)}/${fmt(selectedBenchmark.outputTokens)}，并发 ${fmt(selectedBenchmark.concurrency)}）。`
+    :multiMode&&selectedBenchmark&&(!currentFingerprintComplete||!selectedFingerprintComplete)
+      ?'单副本口径：当前配置或已保存压测缺少完整拓扑、互联与运行时指纹，暂未应用。'
     :multiMode&&selectedBenchmark&&benchmarkHardwareMatch&&!benchmarkWorkloadMatch
       ?'单副本口径：压测工作负载与当前 ISL/OSL/并发不一致，暂未应用。'
     :multiMode&&selectedBenchmark&&benchmarkHardwareMatch&&benchmarkWorkloadMatch&&!benchmarkSlaMatch
@@ -704,8 +817,24 @@ function calculate(){
         :'';
   $('computePrecisionHint').innerHTML=`<b>计算口径：</b>${selectedPrecision.label} 权重；BF16/FP16 基准算力 × ${fmt(x.computeMultiplier,2)}。${calibrationState}${benchmarkScope}`;
   if(multiMode){
+    const missingFingerprint=[];
+    if(!topologyValid)missingFingerprint.push('有效 TP/PP/EP');
+    if(!String(x.networkFabric||'').trim())missingFingerprint.push('互联类型');
+    if(!(x.networkBandwidth>0))missingFingerprint.push('互联带宽');
+    if(!['enabled','disabled'].includes(x.rdmaMode))missingFingerprint.push('RDMA 状态');
+    if(!String(x.runtimeFramework||'').trim())missingFingerprint.push('推理框架');
+    if(!String(x.runtimeVersion||'').trim())missingFingerprint.push('框架/镜像版本');
+    $('fingerprintStatus').className='fingerprint-note '+(missingFingerprint.length?'warn':'complete');
+    $('fingerprintStatus').textContent=missingFingerprint.length
+      ?`压测严格匹配尚缺：${missingFingerprint.join('、')}。不影响无压测估算，但已保存压测不会被应用。`
+      :benchmarkApplied
+        ?'拓扑、互联与运行时指纹完整，正在采用严格匹配的单副本压测。'
+        :'拓扑、互联与运行时指纹完整，可用于保存和严格匹配单副本压测。';
+    const slaCopy=x.slaTtft>0||x.slaItl>0?'工作负载与 SLA 匹配':'工作负载匹配，未设置 SLA 门槛';
     $('benchmarkSummary').textContent=benchmarkApplied
-      ?`已应用：${selectedBenchmark.name} · ${fmt(benchmarkTps)} token/s · 工作负载与 SLA 匹配`
+      ?`已应用：${selectedBenchmark.name} · ${fmt(benchmarkTps)} token/s · ${slaCopy}`
+      :selectedBenchmark&&(!currentFingerprintComplete||!selectedFingerprintComplete)
+        ?`“${selectedBenchmark.name}”缺少完整拓扑、互联或运行时指纹，未应用`
       :selectedBenchmark&&benchmarkHardwareMatch&&!benchmarkWorkloadMatch
         ?`“${selectedBenchmark.name}”工作负载不匹配，未应用`
       :selectedBenchmark&&benchmarkHardwareMatch&&benchmarkWorkloadMatch&&!benchmarkSlaMatch
@@ -724,7 +853,7 @@ function calculate(){
   $('modeNote').textContent=qpsMode
     ?benchmarkApplied
       ?`需求 ${fmt(demand)} token/s；实测单副本 ${fmt(benchmarkTps)}，目标负载 ${fmt(x.targetUtil,0)}%`
-      :`需求 ${fmt(demand)} token/s；按 ${fmt(x.qpsPlanningEff,1)}% 规划系数与 ${fmt(x.targetUtil,0)}% 目标负载反算`
+      :`输出需求 ${fmt(demand)} token/s；计入 Prefill 后规划负载 ${fmt(equivalentDemand)} token/s`
     :benchmarkApplied
       ?`${fmt(benchmarkTps)} /副本 × ${replicas} 副本 × ${fmt(replicaDispatchFactor*100,1)}%`
       :multiMode
@@ -764,16 +893,19 @@ function calculate(){
 
   const qpsStatus=$('qpsEfficiencyStatus');
   if(qpsMode){
+    const fingerprintMismatch=Boolean(selectedBenchmark&&(!currentFingerprintComplete||!selectedFingerprintComplete));
     const workloadMismatch=Boolean(selectedBenchmark&&benchmarkHardwareMatch&&!benchmarkWorkloadMatch);
     const slaMismatch=Boolean(selectedBenchmark&&benchmarkHardwareMatch&&benchmarkWorkloadMatch&&!benchmarkSlaMatch);
     qpsStatus.className='status'+(!benchmarkApplied?' warn':'');
     qpsStatus.textContent=benchmarkApplied
       ?`已按实测单副本 ${fmt(benchmarkTps)} token/s 规划：${activeSystems} 个服务副本，平均负载 ${fmt(perSystemLoad,1)}%，另加 ${reserveSystems} 个冗余副本。`
+      :fingerprintMismatch
+        ?`保存的压测缺少完整拓扑、互联或运行时指纹，未应用；已按等效规划负载 ${fmt(equivalentDemand)} token/s 回退到无压测估算。`
       :workloadMismatch
         ?`保存的压测与当前 ISL ${fmt(x.inTokens)}、OSL ${fmt(x.outTokens)}、并发 ${fmt(x.qpsConcurrency)} 不一致，已回退到 ${fmt(x.qpsPlanningEff,1)}% 无压测规划系数；当前需 ${activeSystems} 个服务副本 + ${reserveSystems} 个冗余。`
         :slaMismatch
           ?`压测未满足当前 P95 SLA，已回退到 ${fmt(x.qpsPlanningEff,1)}% 无压测规划系数；当前需 ${activeSystems} 个服务副本 + ${reserveSystems} 个冗余。`
-          :`无匹配压测：按 Decode 上限 × ${fmt(parallelFactor*100,1)}% 副本内并行效率 × ${fmt(planningFactor*100,1)}% 内核与业务规划系数计算单副本能力，再以 ${fmt(targetUtilFactor*100,0)}% 目标负载规划 ${activeSystems} 个服务副本 + ${reserveSystems} 个冗余。`;
+          :`无匹配压测：输出需求 ${fmt(demand)} token/s；按 OSL ${fmt(x.outTokens)} + ISL ${fmt(x.inTokens)} × ${fmt(x.prefillFactor,2)} 折算为 ${fmt(equivalentDemand)} token/s 规划负载，再以 ${fmt(targetUtilFactor*100,0)}% 目标负载规划 ${activeSystems} 个服务副本 + ${reserveSystems} 个冗余。`;
   }
 
   const validity=$('configValidity');
@@ -781,18 +913,27 @@ function calculate(){
   validity.textContent=configurationValid
     ?benchmarkApplied
       ?'配置规则校验通过；当前主结果采用严格匹配的单副本实测 TPS。'
-      :'配置规则校验通过；当前没有严格匹配的压测，主结果为可修改效率系数下的规划估算。'
+      :qpsMode
+        ?'配置规则校验通过；当前没有严格匹配的压测，副本数为包含 Prefill 等效负载的规划估算，不作为 SLA 承诺。'
+        :'配置规则校验通过；当前没有严格匹配的压测，主结果为可修改效率系数下的规划估算。'
     :`配置无效：${invalidReasons.join('；')}。硬件成本与建议报价已停用。`;
 
   const billedNodes=multiMode?machines*displayedReplicas:displayedReplicas;
-  $('hardwareRuleNote').className='rule-note'+(cardsWithinNode?'':' warn');
-  $('hardwareRuleNote').textContent=cardsWithinNode
+  const hardwareRuleValid=cardsWithinNode&&machineCountValid;
+  $('hardwareRuleNote').className='rule-note'+(hardwareRuleValid?'':' warn');
+  $('hardwareRuleNote').textContent=!cardCountValid||!nodeCapacityValid
+    ?'固定规则冲突：每节点实际卡数和整机标准卡数都必须是大于 0 的整数；系统不会自动改写输入。'
+    :multiMode&&!machineCountValid
+      ?'固定规则冲突：多机模式的单副本节点数必须是至少 2 的整数；系统不会自动改写输入。'
+    :cardsWithinNode
     ?`固定规则：每节点实际使用 ${cardsPerMachine}/${nodeCardCapacity} 张卡；月租按 ${billedNodes} 个付费节点计算。`
     :`固定规则冲突：每节点实际 ${cardsPerMachine} 张超过整机标准 ${nodeCardCapacity} 张。请增加节点或修正整机规格，系统已停用成本与报价。`;
 
   const fitStatus=$('fitStatus');
   fitStatus.className='status'+(fit?'':' warn');
-  fitStatus.textContent=multiMode
+  fitStatus.textContent=!cardCountValid||!machineCountValid||!hbmReserveValid
+    ?'权重校验暂停：请先填写有效的节点数、卡数与显存预留率。'
+    :multiMode
     ?fit
       ?`仅权重校验：${fmt(weightGB)} GB ≤ 预留 ${fmt(x.hbmReserve,0)}% 后可用 ${fmt(usableHbm)} GB（${machines} 节点 / ${totalCards} 张）；仍需压测 KV Cache 与运行时。`
       :`仅权重校验：${fmt(weightGB)} GB > 预留后可用 ${fmt(usableHbm)} GB；至少需 ${cardsNeeded} 张，按每节点 ${cardsPerMachine} 张约 ${machinesNeeded} 个节点。`
@@ -803,7 +944,9 @@ function calculate(){
   const clusterStatus=$('clusterStatus');
   clusterStatus.hidden=!multiMode;
   if(multiMode){
-    clusterStatus.textContent=qpsMode
+    clusterStatus.textContent=!configurationValid
+      ?`多机配置待修正：${invalidReasons.slice(0,3).join('；')}${invalidReasons.length>3?'…':''}`
+      :qpsMode
       ?`QPS 自动配置：${activeSystems} 个服务副本 + ${reserveSystems} 个冗余，共 ${displayedReplicas*machines} 个节点、${displayedFleetCards} 张卡、月租 ¥${fmt(displayedFleetRent)}。`
       :benchmarkApplied
         ?`单副本：${machines} 节点 / ${totalCards} 张卡 / 实测 ${fmt(benchmarkTps)} token/s；当前 ${replicas} 个完整副本，共 ${fleetCards} 张卡，月租 ¥${fmt(fleetRent)}。`
@@ -831,10 +974,12 @@ function calculate(){
   $('highTps').textContent=fmt(high)+' token/s';
   $('highCost').textContent=configurationValid&&Number.isFinite(highC)?'¥'+fmt(highC,2)+' / M token':configurationValid?'—':'配置无效';
   $('qpsDemandTps').textContent=fmt(demand)+' token/s';
-  $('qpsEffLabel').textContent=benchmarkApplied?'实测服务副本平均负载率':'规划服务副本平均负载率';
+  $('qpsEffLabel').textContent=benchmarkApplied?'实测服务副本平均负载率':'等效规划负载率';
   $('qpsEquivalentEff').textContent=fmt(perSystemLoad,1)+'%';
   $('qpsSystems').textContent=multiMode?paidSystems+' 个副本':paidSystems+' 套';
-  $('qpsSystemNote').textContent=`服务 ${activeSystems} + 冗余 ${reserveSystems}；目标负载 ${fmt(x.targetUtil,0)}%`;
+  $('qpsSystemNote').textContent=benchmarkApplied
+    ?`服务 ${activeSystems} + 冗余 ${reserveSystems}；按匹配压测输出 TPS`
+    :`服务 ${activeSystems} + 冗余 ${reserveSystems}；等效规划负载 ${fmt(equivalentDemand)} token/s`;
   $('quoteRow').classList.toggle('blocked',!configurationValid);
   $('suggestPrice').textContent=configurationValid&&Number.isFinite(price)?'¥ '+fmt(price,2):'暂不可报价';
   $('quoteNote').textContent=configurationValid
@@ -855,8 +1000,13 @@ $('precision').addEventListener('change',()=>{loadCurrentPrecisionMultiplier();c
 }));
 $('savePrecisionMultiplier').onclick=()=>{
   const precisionKey=$('precision').value;
-  const multiplier=Math.max(.01,Number($('computeMultiplier').value)||1);
+  const multiplier=Number($('computeMultiplier').value);
   if(precisionKey==='2')return;
+  if(!(multiplier>0)){
+    alert('量化内核算力倍率必须大于 0；系统不会自动改写为默认值。');
+    $('computeMultiplier').focus();
+    return;
+  }
   const saved=loadPrecisionCalibrations();
   saved[precisionCalibrationId(read())]=multiplier;
   writePrecisionCalibrations(saved);
@@ -896,7 +1046,7 @@ $('capacityBtn').onclick=()=>setMode('capacity');
 $('qpsBtn').onclick=()=>setMode('qps');
 $('calc').onclick=calculate;
 ids.forEach(id=>$(id).addEventListener('input',()=>{
-  if(id==='replicas'&&!qpsMode)plannedReplicas=Math.max(1,Math.floor(Number($('replicas').value)||1));
+  if(id==='replicas'&&!qpsMode)plannedReplicas=$('replicas').value;
   if(['model','arch','precision','activeParams','totalParams'].includes(id)){
     selectedSavedPresetId='';
     markPreset('custom');
