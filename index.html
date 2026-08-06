@@ -15,6 +15,7 @@
     .config-validity{margin-bottom:10px;font-weight:650}.config-validity.reference{background:#eef4ff;color:#315585}.metric.invalid{background:#fffaeb;border-color:#fedf89}.metric.invalid .value{color:var(--amber)}.quote-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.quote-row.blocked #suggestPrice{font-size:15px!important;color:var(--amber)!important}.rule-note{grid-column:1/-1;margin:-2px 0 0;padding:7px 9px;border-radius:6px;background:#eef4ff;color:#315585;font-size:10px}.rule-note.warn{background:#fffaeb;color:var(--amber)}
     .topology-lanes{display:grid;grid-template-columns:1fr 1fr;gap:7px}.topology-lane{border:1px solid #dce6fb;border-radius:6px;background:#fff;padding:7px}.topology-lane-head{margin-bottom:6px}.topology-lane-head b{display:block;color:#2858cd;font-size:10px}.topology-lane-head small{display:block;color:#667085;font-size:9px;line-height:1.35;margin-top:2px}.topology-lane .fields{grid-template-columns:1fr;gap:6px}.fingerprint-note{padding:7px 9px;border-radius:6px;background:#eef4ff;color:#315585;font-size:10px;margin-top:7px}.fingerprint-note.complete{background:#ecfdf3;color:var(--green)}.fingerprint-note.warn{background:#fffaeb;color:var(--amber)}.doc-links{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin:-4px 0 10px;font-size:11px}.doc-links span{color:#98a2b3}.doc-links a{color:#2858cd;text-decoration:none;padding:3px 7px;border:1px solid #d7e5ff;border-radius:99px;background:#f5f8ff}.doc-links a:hover{background:#eaf1ff}.billing-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.billing-box{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #d7e5ff;border-radius:7px;background:#f5f8ff;padding:9px 11px}.billing-box small{display:block;color:#667085;font-size:10px}.billing-box b{display:block;color:#234fbf;font-size:17px;margin-top:1px}.billing-box span{max-width:58%;color:#667085;font-size:10px;text-align:right}.billing-box.warn{border-color:#fedf89;background:#fffaeb}.billing-box.warn b{color:var(--amber)}@media(max-width:560px){.doc-links{justify-content:flex-start;flex-wrap:wrap}.billing-strip{grid-template-columns:1fr}}@media(max-width:440px){.topology-lanes{grid-template-columns:1fr}}
     .multi-strategy-grid{display:grid;grid-template-columns:1fr;gap:7px}.multi-strategy-grid .field{min-width:0}.multi-strategy-grid label{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.multi-strategy-grid .input-wrap{height:31px}.multi-basic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:7px}.multi-content .multi-basic-grid{grid-template-columns:1fr}.multi-basic-grid .field{min-width:0}.multi-basic-grid label{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.multi-basic-grid .input-wrap{height:31px}.compact-advanced>summary{display:flex;align-items:center;gap:7px}.compact-advanced>summary>span{font-weight:650;color:#475467}.compact-advanced>summary>small{min-width:0;margin-left:auto;color:#98a2b3;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.compact-advanced>summary:after{float:none;flex:none}.compact-advanced .advanced-grid{padding-top:7px}.compact-advanced .advanced-grid .input-wrap{margin:0}.compact-advanced .advanced-grid .hint{margin:4px 0 0}.residency-advanced{margin-top:7px}.residency-advanced .advanced-grid{padding-top:7px}.multi-tuning{margin-top:7px;border:1px solid #dce6fb;border-radius:6px;background:#fff;overflow:hidden}.multi-tuning>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 9px;cursor:pointer;list-style:none;color:#315585;font-size:10px;font-weight:650}.multi-tuning>summary::-webkit-details-marker{display:none}.multi-tuning>summary:after{content:"展开";color:#2858cd;font-weight:500}.multi-tuning[open]>summary{border-bottom:1px solid #e5ebf7;background:#f8faff}.multi-tuning[open]>summary:after{content:"收起"}.multi-tuning>summary small{min-width:0;margin-left:auto;color:#667085;font-size:9px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.multi-tuning-body{padding:7px 8px}.multi-tuning-body .fields{grid-template-columns:1fr 1fr;gap:7px}.multi-tuning-body .hint{margin:6px 0 0}.multi-collapse-head.warn{margin-bottom:8px}.multi-collapse-head.warn.collapsed{margin-bottom:0}.multi-collapse-head button:disabled{opacity:.55}@media(max-width:440px){.multi-basic-grid{grid-template-columns:1fr}.multi-tuning-body .fields{grid-template-columns:1fr}}
+    .deployment-card-total{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;padding:7px 9px;border:1px solid #dce6fb;border-radius:6px;background:#fff}.deployment-card-total span{min-width:0}.deployment-card-total b,.deployment-card-total small{display:block}.deployment-card-total b{color:#475467;font-size:10px}.deployment-card-total small{color:#98a2b3;font-size:9px;margin-top:1px}.deployment-card-total strong{flex:none;color:#2858cd;font-size:12px}@media(max-width:440px){.deployment-card-total{align-items:flex-start}.deployment-card-total strong{padding-top:1px}}
   </style>
 </head>
 <body><div class="shell">
@@ -25,17 +26,18 @@
 <div class="model-compact"><div><small>当前模型</small><b id="currentModelName">GLM-5.2</b><div class="current-meta" id="currentModelMeta">MoE · 40B 激活 / 744B 总参数</div></div><button type="button" class="ghost" id="openModelPicker">选择 / 管理模型</button></div></div><details class="field full advanced-field compact-advanced" id="modelParameterDetails"><summary><span>模型详细参数</span><small id="modelParameterSummary">FP8 · 40B 激活 / 744B 总参数</small></summary><div class="advanced-grid"><div class="field full"><label>模型名称</label><div class="input-wrap"><input id="model" value="GLM-5.2" /></div></div><div class="field"><label>结构</label><div class="input-wrap"><select id="arch"><option value="moe">MoE</option><option value="dense">Dense</option></select></div></div><div class="field"><label>权重精度（显存口径）</label><div class="input-wrap"><select id="precision"><option value="2">BF16 / FP16（2 B/参数）</option><option value="1" selected>FP8（1 B/参数）</option><option value="0.5">INT4 / MXFP4 近似（0.5 B/参数）</option></select></div></div><div class="field"><label>每 Token 激活参数</label><div class="input-wrap"><input id="activeParams" type="number" value="40" min="0.1" step="0.1"/><span>B</span></div></div><div class="field"><label>总参数（权重估算）</label><div class="input-wrap"><input id="totalParams" type="number" value="744" min="0.1" step="0.1"/><span>B</span></div></div></div></details></div>
 <div class="split"></div><div class="section-label">硬件与效率</div>
   <div class="fields">
-  <div class="field full"><label>硬件整机配置</label><div class="input-wrap"><select id="hardwareSku"><option value="ascend910c8" selected>Ascend 910C · 8 卡整机</option><optgroup label="我的硬件预设" id="savedHardwareOptions"></optgroup><option value="custom">自定义整机配置</option></select></div><p class="hint" id="hardwareSkuHint">预设锁定卡型、算力、显存与单节点标准卡数；月租可按实际合同修改。</p></div>
+  <div class="field full"><label>硬件整机配置</label><div class="input-wrap"><select id="hardwareSku"><option value="ascend910c8" selected>Ascend 910C · 8 卡整机</option><optgroup label="我的硬件预设" id="savedHardwareOptions"></optgroup><option value="custom">自定义整机配置</option></select></div><p class="hint" id="hardwareSkuHint">预设锁定卡型、算力、显存与单节点整机卡数；月租可按实际合同修改。</p></div>
   <div class="hardware-preset-editor" id="hardwarePresetEditor" hidden><label>硬件预设名称</label><div class="input-wrap"><input id="hardwarePresetName" placeholder="例如 A100 80GB · 8卡整机"/></div><div class="hardware-preset-actions"><button type="button" id="saveHardwarePreset">保存为新预设</button><button type="button" class="secondary" id="updateHardwarePreset" disabled>更新当前预设</button><button type="button" class="secondary" id="deleteHardwarePreset" disabled>删除当前预设</button></div><p class="hardware-preset-status" id="hardwarePresetStatus">配置仅保存在当前浏览器，不会上传服务器。</p></div>
-  <div class="field full"><label id="cardsLabel">每个副本实际使用卡数</label><div class="input-wrap"><input id="cards" type="number" value="8" min="1" step="1"/><span>张/副本</span></div></div>
-  <details class="field full advanced-field compact-advanced" id="hardwareSpecDetails"><summary><span>硬件固定规格与量化倍率</span><small id="hardwareSpecSummary">626 TFLOPS · 128 GB/卡 · 8 卡/节点</small></summary><div class="advanced-grid"><div class="field"><label>加速卡型号</label><div class="input-wrap"><input id="hardwareName" value="Ascend 910C" disabled/></div></div><div class="field"><label>单卡 BF16/FP16 基准算力</label><div class="input-wrap"><input id="cardTflops" type="number" value="626" min="1" disabled/><span>TFLOPS</span></div></div><div class="field"><label>量化内核算力倍率（实测）</label><div class="input-wrap"><input id="computeMultiplier" type="number" value="1" min="0.01" step="0.01"/><span>× BF16</span></div></div><div class="field"><label>单卡显存</label><div class="input-wrap"><input id="memory" type="number" value="128" min="1" disabled/><span>GB</span></div></div><div class="field full"><label id="nodeCapacityLabel">单节点标准卡数（硬件规格）</label><div class="input-wrap"><input id="nodeCardCapacity" type="number" value="8" min="1" step="1" disabled/><span>张/台</span></div></div></div></details>
+  <details class="field full advanced-field compact-advanced" id="hardwareSpecDetails"><summary><span>硬件固定规格与量化倍率</span><small id="hardwareSpecSummary">626 TFLOPS · 128 GB/卡 · 8 卡/节点</small></summary><div class="advanced-grid"><div class="field"><label>加速卡型号</label><div class="input-wrap"><input id="hardwareName" value="Ascend 910C" disabled/></div></div><div class="field"><label>单卡 BF16/FP16 基准算力</label><div class="input-wrap"><input id="cardTflops" type="number" value="626" min="1" disabled/><span>TFLOPS</span></div></div><div class="field"><label>量化内核算力倍率（实测）</label><div class="input-wrap"><input id="computeMultiplier" type="number" value="1" min="0.01" step="0.01"/><span>× BF16</span></div></div><div class="field"><label>单卡显存</label><div class="input-wrap"><input id="memory" type="number" value="128" min="1" disabled/><span>GB</span></div></div><div class="field full"><label id="nodeCapacityLabel">单节点整机卡数（硬件规格）</label><div class="input-wrap"><input id="nodeCardCapacity" type="number" value="8" min="1" step="1" disabled/><span>张/台</span></div></div></div></details>
   <div class="multi-area" id="multiArea">
+    <input id="cards" type="hidden" value="8"/>
     <div class="deployment-auto-head"><b>部署规模</b><span class="deployment-mode-badge" id="deploymentModeBadge">单节点部署（自动）</span></div>
     <div class="multi-basic-grid" aria-label="部署规模设置">
       <div class="field"><label id="replicaNodesLabel" title="每个完整模型副本使用的节点数">每个副本使用节点数</label><div class="input-wrap"><input id="machines" type="number" value="1" min="1" step="1"/><span>台/副本</span></div></div>
       <div class="field"><label id="replicasLabel" title="规划的完整模型副本数量">部署副本数</label><div class="input-wrap"><input id="replicas" type="number" value="1" min="1" step="1"/><span>个</span></div></div>
     </div>
-    <p class="hint" id="deploymentAutoHint">节点数为 1 时按单节点计算；增加到 2 个及以上时自动启用多节点校验。</p>
+    <div class="deployment-card-total"><span><b>单副本整机资源</b><small id="replicaCardsFormula">1 节点 × 8 张/节点</small></span><strong id="replicaCardsAuto" aria-live="polite">8 张卡</strong></div>
+    <p class="hint" id="deploymentAutoHint">整机部署按“节点数 × 单节点整机卡数”自动计算，不再单独填写实际卡数。</p>
     <div class="multi-collapse-head" id="multiCollapseHead">
       <div class="multi-collapse-copy"><span class="multi-collapse-summary" id="multiSummary" aria-live="polite">每个副本：1 节点、8 张卡；共 1 个副本</span><span class="multi-attention" id="multiAttention" hidden></span></div>
       <button type="button" id="toggleMultiDetails" aria-expanded="false" aria-controls="multiContent">高级设置</button>
@@ -52,7 +54,7 @@
   <details class="field full advanced-field" id="benchmarkFingerprintFields"><summary>实测匹配参数 · 拓扑、互联、运行时与 SLA</summary><div class="advanced-grid"><div><label>TP（1=未启用）</label><div class="input-wrap"><input id="tpSize" type="number" value="8" min="1" step="1"/><span>路</span></div></div><div><label>PP（1=未启用）</label><div class="input-wrap"><input id="ppSize" type="number" value="1" min="1" step="1"/><span>级</span></div></div><div><label>EP（1=未启用）</label><div class="input-wrap"><input id="epSize" type="number" value="1" min="1" step="1"/><span>路</span></div></div><div><label>跨节点互联类型（节点数≥2时必填）</label><div class="input-wrap"><input id="networkFabric" placeholder="例如 HCCS / IB / RoCE"/></div></div><div><label>单节点跨机带宽（节点数≥2时必填）</label><div class="input-wrap"><input id="networkBandwidth" type="number" value="0" min="0" step="1"/><span>Gb/s</span></div></div><div><label>RDMA / 直通状态（节点数≥2时必填）</label><div class="input-wrap"><select id="rdmaMode"><option value="unknown">待确认</option><option value="enabled">已启用</option><option value="disabled">未启用</option></select></div></div><div><label>当前推理框架</label><div class="input-wrap"><input id="runtimeFramework" placeholder="例如 MindIE / vLLM"/></div></div><div><label>当前框架 / 镜像版本</label><div class="input-wrap"><input id="runtimeVersion" placeholder="例如 0.10.2"/></div></div><div><label>P95 TTFT 上限（可选）</label><div class="input-wrap"><input id="slaTtft" type="number" value="0" min="0" step="1"/><span>ms</span></div></div><div><label>P95 ITL 上限（可选）</label><div class="input-wrap"><input id="slaItl" type="number" value="0" min="0" step="0.1"/><span>ms</span></div></div></div><div class="fingerprint-note" id="fingerprintStatus">1 个节点需匹配拓扑和运行时；2 个及以上节点还需匹配互联与 RDMA。</div></details>
   <div class="benchmark-toolbar"><span id="benchmarkSummary">无匹配实测，当前按 20% 效率估算</span><button type="button" id="openBenchmarkManager">管理实测</button></div>
   <div class="compute-note"><span id="computePrecisionHint"><b>计算口径：</b>BF16/FP16 基准倍率固定为 1.00。</span><div class="calibration-actions"><button type="button" id="savePrecisionMultiplier" disabled>保存当前倍率</button><button type="button" class="secondary" id="resetPrecisionMultiplier" disabled>恢复 1.00</button></div></div>
-  <div class="rule-note" id="hardwareRuleNote">固定规则：实际使用卡数不得超过整机标准卡数；整机月租按节点数计算。</div>
+  <div class="rule-note" id="hardwareRuleNote">整机规则：单副本总卡数 = 节点数 × 单节点整机卡数；整机月租按节点数计算。</div>
   <details class="field full advanced-field"><summary>高级参数 · 显存预留与带宽参考</summary><div class="advanced-grid"><div><label>显存预留率</label><div class="input-wrap"><input id="hbmReserve" type="number" value="20" min="0" max="90" step="1"/><span>%</span></div></div><div><label>单卡 HBM 带宽（仅作低批次参考）</label><div class="input-wrap"><input id="bandwidth" type="number" value="0" min="0"/><span>GB/s</span></div></div></div><p class="hint" style="padding:0 8px 8px;margin:0">带宽参考只用于辅助判断，不直接限制主结果；真实吞吐以同拓扑压测为准。</p></details>
   <details class="field full advanced-field compact-advanced" id="estimateDetails" open><summary><span>无压测估算</span><small id="estimateDetailsSummary">内核与服务效率 20%</small></summary><div class="advanced-grid"><input id="estimatePreset" type="hidden" value="custom"/><div class="field full" id="effField"><label>内核与服务效率</label><div class="slider-row"><input id="eff" type="range" min="1" max="100" step="0.1" value="20"/><span class="eff-val" id="effVal">20%</span></div><p class="hint" id="effHint">无匹配压测时，用该比例将理论吞吐折算为预计有效吞吐；节点数变化后仍使用同一口径。</p></div></div></details>
 </div>
@@ -371,7 +373,7 @@ function updateHardwareSkuControls(){
     ?'填写硬件规格和月租后，可保存到“我的硬件预设”，以后直接选择。'
     :saved
       ?'已加载本地硬件预设；修改规格或月租后，点击“更新当前预设”保存。'
-      :'内置预设锁定卡型、算力、显存与单节点标准卡数；月租仍可按实际合同修改。';
+      :'内置预设锁定卡型、算力、显存与单节点整机卡数；月租仍可按实际合同修改。';
 }
 
 function applyHardwareSku(key){
@@ -617,7 +619,7 @@ function renderClusterBenchmarks(){
     const sla=[item.ttft?`TTFT≤${fmt(item.ttft,1)}ms`:'',item.itl?`ITL≤${fmt(item.itl,1)}ms`:''].filter(Boolean).join(' / ');
     const fingerprint=savedBenchmarkFingerprintComplete(item)?'':' · 不会严格应用，需补全并重新保存';
     const savedReplicaCards=positiveInteger(item.replicaCards)?Number(item.replicaCards):isMultiBenchmark?Number(item.cardsPerMachine||0)*Number(item.machines):Number(item.cardsPerMachine||0);
-    const deployment=`单副本 ${Number(item.machines)||1} 节点 / ${savedReplicaCards} 张实际卡`;
+    const deployment=`单副本 ${Number(item.machines)||1} 节点 / ${savedReplicaCards} 张整机卡`;
     detail.textContent=`${item.model} · ${item.hardwareName||'Ascend 910C'} · ${deployment} · ${item.precisionLabel}${topology?' · '+topology:''}${network}${runtime}${workload}${sla?' · '+sla:''}${fingerprint}`;
     const tps=document.createElement('strong');
     tps.textContent=fmt(item.clusterTps)+' token/s';
@@ -632,7 +634,7 @@ function openBenchmarkManager(){
   benchmarkManagerOpener=document.activeElement;
   selectedBenchmarkId='';
   const machines=Number($('machines').value)||0;
-  const scope=`${machines}节点/${$('cards').value}卡单副本`;
+  const scope=`${machines}节点/${$('cards').value}张整机卡单副本`;
   $('benchmarkName').value=`${$('model').value.trim()||'未命名模型'} · ${scope}压测`;
   $('benchmarkModalScope').textContent='保存一个完整模型副本在当前节点与卡数配置下的 Aggregate Output TPS。';
   $('benchmarkTpsLabel').textContent='单副本实测输出吞吐';
@@ -730,16 +732,20 @@ function toggleMultiDetails(){
 
 function syncDeploymentModeFromNodes(){
   const nodes=Number($('machines').value);
+  const cardsPerNode=Number($('nodeCardCapacity').value);
+  const replicaCards=positiveInteger(nodes)&&positiveInteger(cardsPerNode)?nodes*cardsPerNode:0;
+  $('cards').value=replicaCards||'';
   multiMode=positiveInteger(nodes)&&nodes>1;
   $('deploymentModeBadge').textContent=positiveInteger(nodes)
     ?nodes===1?'单节点部署（自动）':`${nodes} 节点部署（自动）`
     :'节点数待填写';
-  $('deploymentAutoHint').textContent=positiveInteger(nodes)
-    ?nodes===1
-      ?'当前按单节点计算；把节点数增加到 2 个及以上后，系统会自动启用多节点校验。'
-      :'当前已自动按多节点计算；请确保每个副本的实际卡数能够分配到所有节点。'
-    :'请输入大于 0 的整数节点数。';
-  $('cardsLabel').textContent='每个副本实际使用卡数';
+  $('replicaCardsFormula').textContent=positiveInteger(nodes)&&positiveInteger(cardsPerNode)
+    ?`${nodes} 节点 × ${cardsPerNode} 张/节点`
+    :'请先填写有效节点数与整机卡数';
+  $('replicaCardsAuto').textContent=replicaCards?`${replicaCards} 张卡`:'待计算';
+  $('deploymentAutoHint').textContent=replicaCards
+    ?`当前按 ${nodes} 台整机计算；每个节点自动使用完整的 ${cardsPerNode} 张卡${multiMode?'，并启用多节点校验。':'。'}`
+    :'节点数和单节点整机卡数必须是大于 0 的整数。';
   $('clusterStatus').hidden=!multiMode;
   updatePoolModeUi();
 }
@@ -758,10 +764,6 @@ function applyClusterBenchmark(id){
   $('computeMultiplier').value=item.computeMultiplier;
   $('hardwareName').value=item.hardwareName||'Ascend 910C';
   const savedMachines=Number(item.machines)||1;
-  const savedReplicaCards=positiveInteger(item.replicaCards)
-    ?Number(item.replicaCards)
-    :savedMachines>1?Number(item.cardsPerMachine||0)*savedMachines:Number(item.cardsPerMachine||0);
-  $('cards').value=savedReplicaCards;
   if(positiveInteger(item.nodeCardCapacity))$('nodeCardCapacity').value=item.nodeCardCapacity;
   $('machines').value=savedMachines;
   $('memory').value=item.memory;
@@ -820,8 +822,8 @@ function saveClusterBenchmark(){
     alert('请先填写有效的模型名称、参数量、基准算力、量化倍率和显存。');
     return;
   }
-  if(!positiveInteger(machines)||!positiveInteger(replicaCards)||!positiveInteger(x.nodeCardCapacity)||replicaCards>machines*x.nodeCardCapacity||replicaCards<machines){
-    alert('请先填写有效的每副本节点数、每副本实际卡数和单节点标准卡数；每个节点至少使用 1 张卡，且总卡数不得超过节点容量。');
+  if(!positiveInteger(machines)||!positiveInteger(replicaCards)||!positiveInteger(x.nodeCardCapacity)||replicaCards!==machines*x.nodeCardCapacity){
+    alert('请先填写有效的每副本节点数与单节点整机卡数；单副本总卡数由两者自动计算。');
     return;
   }
   if(!currentBenchmarkFingerprintComplete(fingerprintCandidate,totalCards,machines)){
@@ -944,7 +946,7 @@ function calculate(){
   const poolNodesPerGroup=reusePool?x.poolNodes:machines;
   const poolNodeCountValid=positiveInteger(poolNodesPerGroup)&&poolNodesPerGroup>=machines;
   const replicaTopologyCapacity=machines*nodeCardCapacity;
-  const replicaCardsFit=cardCountValid&&nodeCapacityValid&&machineCountValid&&replicaCards<=replicaTopologyCapacity&&replicaCards>=machines;
+  const replicaCardsFit=cardCountValid&&nodeCapacityValid&&machineCountValid&&replicaCards===replicaTopologyCapacity;
   const theoreticalCardResidentLimit=reusePool&&replicaCards>0&&poolNodesPerGroup>0&&nodeCardCapacity>0?Math.floor(poolNodesPerGroup*nodeCardCapacity/replicaCards):1;
   const conservativeResidentLimit=reusePool&&machines>0&&poolNodesPerGroup>0?Math.floor(poolNodesPerGroup/machines):1;
   const residentLimit=reusePool?(verifiedReuse?x.verifiedResidentLimit:conservativeResidentLimit):1;
@@ -1060,8 +1062,8 @@ function calculate(){
   if(!modelParamsValid)invalidReasons.push('激活参数必须大于 0 且不超过总参数');
   if(!precisionValid)invalidReasons.push('权重精度必须使用系统支持的口径');
   if(!hardwareInputsValid)invalidReasons.push('硬件型号、算力和显存必须有效');
-  if(!cardCountValid)invalidReasons.push('实际使用卡数必须是大于 0 的整数');
-  if(!nodeCapacityValid)invalidReasons.push('单节点标准卡数必须是大于 0 的整数');
+  if(nodeCapacityValid&&machineCountValid&&!cardCountValid)invalidReasons.push('单副本整机总卡数计算失败');
+  if(!nodeCapacityValid)invalidReasons.push('单节点整机卡数必须是大于 0 的整数');
   if(!machineCountValid)invalidReasons.push('每个副本使用节点数必须是大于 0 的整数');
   if(!poolModeValid)invalidReasons.push('副本硬件复用方式无效');
   if(reusePool&&!residencyModeValid)invalidReasons.push('高级空卡复用设置无效');
@@ -1069,11 +1071,8 @@ function calculate(){
   if(verifiedReuse&&!positiveInteger(x.verifiedResidentLimit))invalidReasons.push('实测空卡复用必须填写大于 0 的每组可运行副本数');
   if(verifiedReuse&&positiveInteger(x.verifiedResidentLimit)&&x.verifiedResidentLimit>theoreticalCardResidentLimit)invalidReasons.push(`每组实测可运行 ${x.verifiedResidentLimit} 个副本，超过物理整卡上限 ${theoreticalCardResidentLimit} 个`);
   if(!qpsMode&&!manualReplicaCountValid)invalidReasons.push('部署副本数必须是大于 0 的整数');
-  if(cardCountValid&&nodeCapacityValid&&machineCountValid&&!replicaCardsFit){
-    if(replicaCards>replicaTopologyCapacity)invalidReasons.push(`每个副本实际使用 ${replicaCards} 张卡，超过 ${machines} 个节点可容纳的 ${replicaTopologyCapacity} 张；请将节点数增加到至少 ${Math.ceil(replicaCards/nodeCardCapacity)} 个`);
-    else invalidReasons.push('每个副本使用的每个节点至少需要分配 1 张卡');
-  }
-  if(multiMode&&!topologyValid)invalidReasons.push('TP/PP/EP 必须为正整数，且 TP × PP 不得超过单副本实际总卡数');
+  if(cardCountValid&&nodeCapacityValid&&machineCountValid&&!replicaCardsFit)invalidReasons.push('单副本总卡数必须等于节点数 × 单节点整机卡数');
+  if(multiMode&&!topologyValid)invalidReasons.push('TP/PP/EP 必须为正整数，且 TP × PP 不得超过单副本整机总卡数');
   if(!fit)invalidReasons.push('当前单副本权重无法放入预留后的可用显存');
   if(!dispatchSettingValid)invalidReasons.push('多副本调度效率必须大于 0% 且不超过 100%');
   if(!capacityEfficiencyValid)invalidReasons.push('内核与服务效率必须大于 0% 且不超过 100%');
@@ -1251,24 +1250,24 @@ function calculate(){
 
   const hardwareRuleValid=poolModeValid&&replicaCardsFit&&poolNodeCountValid&&residencyModeValid&&residentLimitValid&&unitRentValid;
   $('hardwareRuleNote').className='rule-note'+(hardwareRuleValid?'':' warn');
-  $('hardwareRuleNote').textContent=!cardCountValid||!nodeCapacityValid
-    ?'固定规则冲突：实际卡数和单节点标准卡数都必须是大于 0 的整数。'
+  $('hardwareRuleNote').textContent=!nodeCapacityValid
+    ?'固定规则冲突：单节点整机卡数必须是大于 0 的整数。'
     :!machineCountValid?'固定规则冲突：每个副本使用节点数必须是大于 0 的整数。'
-    :!replicaCardsFit?`固定规则冲突：${machines} 个节点最多容纳 ${replicaTopologyCapacity} 张卡，且每个节点至少分配 1 张。`
+    :!cardCountValid||!replicaCardsFit?'固定规则冲突：单副本总卡数应由节点数 × 单节点整机卡数自动生成。'
     :!poolModeValid?'固定规则冲突：副本硬件复用方式无效。'
     :!poolNodeCountValid?'固定规则冲突：固定硬件池每组付费节点不得少于每个副本使用节点数。'
     :reusePool&&!residencyModeValid?'固定规则冲突：高级空卡复用设置无效。'
     :verifiedReuse&&!positiveInteger(x.verifiedResidentLimit)?'固定规则冲突：请填写大于 0 的每组实测可运行副本数。'
     :verifiedReuse&&x.verifiedResidentLimit>theoreticalCardResidentLimit?`固定规则冲突：每组实测可运行 ${x.verifiedResidentLimit} 个副本，超过当前物理整卡上限 ${theoreticalCardResidentLimit} 个。`
     :!unitRentValid?'固定规则冲突：请选择计费方式并填写大于 0 的对应月租。'
-    :reusePool&&!verifiedReuse?`固定规则：单副本 ${replicaCards} 张按 ${distributionText} 分布；每组最多运行 ${resourcePlan.maxResidentPerGroup} 个副本，当前需要 ${resourcePlan.groups} 组、共 ${resourcePlan.paidNodes} 个付费节点。`
-    :verifiedReuse?`固定规则：单副本 ${replicaCards} 张按 ${distributionText} 分布；每组按实测最多运行 ${resourcePlan.maxResidentPerGroup} 个副本（物理整卡上限 ${resourcePlan.theoreticalCardLimit} 个），当前需要 ${resourcePlan.groups} 组、共 ${resourcePlan.paidNodes} 个付费节点。`
-    :`固定规则：每个副本使用 ${machines} 个节点、${replicaCards} 张卡；${displayedReplicas} 个副本共计 ${resourcePlan.paidNodes} 个付费节点。`;
+    :reusePool&&!verifiedReuse?`整机规则：单副本 ${machines} 节点 × ${nodeCardCapacity} 张/节点 = ${replicaCards} 张卡；每组最多运行 ${resourcePlan.maxResidentPerGroup} 个副本，当前需要 ${resourcePlan.groups} 组、共 ${resourcePlan.paidNodes} 个付费节点。`
+    :verifiedReuse?`整机规则：单副本 ${machines} 节点 × ${nodeCardCapacity} 张/节点 = ${replicaCards} 张卡；每组按实测最多运行 ${resourcePlan.maxResidentPerGroup} 个副本，当前需要 ${resourcePlan.groups} 组、共 ${resourcePlan.paidNodes} 个付费节点。`
+    :`整机规则：每个副本 ${machines} 节点 × ${nodeCardCapacity} 张/节点 = ${replicaCards} 张卡；${displayedReplicas} 个副本共计 ${resourcePlan.paidNodes} 个付费节点。`;
 
   const fitStatus=$('fitStatus');
   fitStatus.className='status'+(fit?'':' warn');
-  fitStatus.textContent=!cardCountValid||!machineCountValid||!hbmReserveValid
-    ?'权重校验暂停：请先填写有效的节点数、卡数与显存预留率。'
+  fitStatus.textContent=!cardCountValid||!machineCountValid||!nodeCapacityValid||!hbmReserveValid
+    ?'权重校验暂停：请先填写有效的节点数、单节点整机卡数与显存预留率。'
     :multiMode?fit?`仅权重校验：${fmt(weightGB)} GB ≤ 可用 ${fmt(usableHbm)} GB（${machines} 节点 / ${replicaCards} 张，${distributionText}）；仍需压测 KV Cache 与运行时。`:`仅权重校验：${fmt(weightGB)} GB > 可用 ${fmt(usableHbm)} GB；至少需 ${cardsNeeded} 张、约 ${machinesNeeded} 个 ${nodeCardCapacity} 卡节点。`
     :fit?`仅权重校验：${selectedPrecision.label} 约 ${fmt(weightGB)} GB ≤ 可用 ${fmt(usableHbm)} GB；仍需验证 KV Cache 与运行时。`:`仅权重校验：${selectedPrecision.label} 约 ${fmt(weightGB)} GB > 可用 ${fmt(usableHbm)} GB；至少需 ${cardsNeeded} 张。`;
 
